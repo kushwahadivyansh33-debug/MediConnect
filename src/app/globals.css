@@ -1,116 +1,192 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer base {
   :root {
-    --background: 210 20% 98%;
-    --foreground: 222 47% 11%;
+    /* Core palette */
+    --primary:        201 91% 37%;    /* #087FBD */
+    --primary-hover:  201 91% 30%;    /* darker */
+    --primary-light:  201 91% 95%;    /* very light tint */
+    --navy:           222 47% 11%;    /* #101828 */
+    --teal:           174 58% 31%;    /* #0D9488 */
 
-    --card: 0 0% 100%;
+    /* Surfaces */
+    --background:     210 17% 98%;    /* #F7F9FC */
+    --foreground:     222 47% 11%;    /* #101828 */
+
+    --card:           0   0%  100%;   /* #FFFFFF */
     --card-foreground: 222 47% 11%;
 
-    --popover: 0 0% 100%;
+    --popover:        0   0%  100%;
     --popover-foreground: 222 47% 11%;
 
-    --primary: 205 84% 38%;
-    --primary-foreground: 210 40% 98%;
-    --primary-hover: 205 85% 32%;
+    /* Semantic */
+    --primary-foreground: 0 0% 100%;
+    --primary-hover: 201 91% 30%;
 
-    --secondary: 215 20% 93%;
+    --secondary:      210 17% 94%;
     --secondary-foreground: 222 47% 11%;
 
-    --muted: 210 24% 94%;
-    --muted-foreground: 215 16% 47%;
+    --muted:          210 17% 94%;
+    --muted-foreground: 215 16% 47%;  /* #475467 body text */
 
-    --accent: 173 58% 39%;
-    --accent-foreground: 210 40% 98%;
+    --accent:         174 58% 31%;
+    --accent-foreground: 0 0% 100%;
 
-    --destructive: 0 84% 45%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive:    0 84% 45%;
+    --destructive-foreground: 0 0% 100%;
 
-    --success: 152 57% 38%;
-    --success-foreground: 210 40% 98%;
+    --success:        152 57% 35%;
+    --success-foreground: 0 0% 100%;
 
-    --warning: 38 92% 50%;
+    --warning:        38 92% 50%;
     --warning-foreground: 222 47% 11%;
 
-    --border: 214 25% 88%;
-    --input: 214 25% 88%;
-    --ring: 205 84% 38%;
+    --border:         214 25% 90%;    /* #E4EAF1 */
+    --input:          214 25% 90%;
+    --ring:           201 91% 37%;
 
-    --radius: 0.625rem;
+    --radius:         0.625rem;
   }
 
   .dark {
-    --background: 224 45% 7%;
-    --foreground: 210 40% 98%;
+    --background:     222 47% 7%;
+    --foreground:     210 40% 98%;
 
-    --card: 224 40% 11%;
+    --card:           222 40% 11%;
     --card-foreground: 210 40% 98%;
 
-    --popover: 224 40% 11%;
+    --popover:        222 40% 11%;
     --popover-foreground: 210 40% 98%;
 
-    --primary: 204 88% 53%;
-    --primary-foreground: 222 47% 11%;
-    --primary-hover: 204 88% 46%;
+    --primary:        201 88% 52%;
+    --primary-hover:  201 88% 45%;
+    --primary-light:  201 88% 12%;
 
-    --secondary: 222 35% 18%;
+    --secondary:      222 35% 18%;
     --secondary-foreground: 210 40% 98%;
 
-    --muted: 223 30% 16%;
+    --muted:          223 30% 16%;
     --muted-foreground: 215 20% 65%;
 
-    --accent: 173 58% 48%;
+    --accent:         174 58% 45%;
     --accent-foreground: 222 47% 11%;
 
-    --destructive: 0 75% 55%;
+    --destructive:    0 75% 55%;
     --destructive-foreground: 210 40% 98%;
 
-    --success: 152 62% 46%;
+    --success:        152 62% 46%;
     --success-foreground: 222 47% 11%;
 
-    --warning: 41 96% 56%;
+    --warning:        41 96% 56%;
     --warning-foreground: 222 47% 11%;
 
-    --border: 222 30% 20%;
-    --input: 222 30% 20%;
-    --ring: 204 88% 53%;
+    --border:         222 30% 20%;
+    --input:          222 30% 20%;
+    --ring:           201 88% 52%;
   }
 }
 
 @layer base {
   * {
     @apply border-border;
+    box-sizing: border-box;
   }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+
   body {
-    @apply bg-background text-foreground font-sans antialiased;
+    @apply bg-background text-foreground antialiased;
+    font-family: 'Inter', 'system-ui', '-apple-system', sans-serif;
     font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+    font-size: 15px;
+    line-height: 1.6;
   }
+
   h1, h2, h3, h4, h5, h6 {
-    @apply font-display tracking-tight text-foreground font-semibold;
+    font-family: 'Plus Jakarta Sans', 'Inter', sans-serif;
+    @apply tracking-tight text-foreground;
+    line-height: 1.25;
+  }
+
+  /* Focus rings */
+  :focus-visible {
+    outline: 2px solid hsl(var(--primary));
+    outline-offset: 2px;
   }
 }
 
-/* Tabular digits for metric data */
+/* ─────────────────────────────────────────
+   Font helpers
+──────────────────────────────────────────*/
+.font-display {
+  font-family: 'Plus Jakarta Sans', 'Inter', sans-serif;
+}
+
+/* Tabular digits for numbers / timestamps */
 .font-tabular {
   font-feature-settings: "tnum";
   font-variant-numeric: tabular-nums;
 }
 
-/* Custom Scrollbar */
-::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
+/* ─────────────────────────────────────────
+   Skeleton loader
+──────────────────────────────────────────*/
+@keyframes skeleton-pulse {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.5; }
 }
-::-webkit-scrollbar-track {
-  background: transparent;
+
+.skeleton {
+  @apply rounded-lg bg-border;
+  animation: skeleton-pulse 1.8s ease-in-out infinite;
 }
+
+/* ─────────────────────────────────────────
+   Subtle fade-in for modals / panels
+──────────────────────────────────────────*/
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fadeIn {
+  animation: fadeIn 0.18s ease-out both;
+}
+
+/* ─────────────────────────────────────────
+   Custom scrollbar
+──────────────────────────────────────────*/
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
 ::-webkit-scrollbar-thumb {
-  background: hsl(var(--muted-foreground) / 0.3);
-  border-radius: 4px;
+  background: hsl(var(--border));
+  border-radius: 99px;
 }
 ::-webkit-scrollbar-thumb:hover {
   background: hsl(var(--muted-foreground) / 0.5);
+}
+
+/* ─────────────────────────────────────────
+   Reduced-motion
+──────────────────────────────────────────*/
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ─────────────────────────────────────────
+   Selection colour
+──────────────────────────────────────────*/
+::selection {
+  background: hsl(var(--primary) / 0.18);
+  color: hsl(var(--primary));
 }

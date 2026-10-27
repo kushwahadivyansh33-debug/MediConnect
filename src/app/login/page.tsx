@@ -3,34 +3,37 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { Lock, Mail, Eye, EyeOff, ShieldCheck, ArrowRight, AlertCircle, ChevronDown } from "lucide-react";
+import {
+  Lock,
+  Mail,
+  Eye,
+  EyeOff,
+  AlertCircle,
+  ShieldCheck,
+  ArrowRight,
+} from "lucide-react";
 
 export default function LoginPage() {
   const router = useRouter();
 
-  const [email, setEmail] = useState("you@hospital.in");
-  const [password, setPassword] = useState("Staff@123");
+  const [email, setEmail]               = useState("");
+  const [password, setPassword]         = useState("");
   const [showPassword, setShowPassword] = useState(false);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
+  const [loading, setLoading]           = useState(false);
+  const [error, setError]               = useState<string | null>(null);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError(null);
     setLoading(true);
-
     try {
-      const res = await fetch("/api/auth/login", {
-        method: "POST",
+      const res  = await fetch("/api/auth/login", {
+        method:  "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, password }),
+        body:    JSON.stringify({ email, password }),
       });
-
       const data = await res.json();
-      if (!res.ok) {
-        throw new Error(data.error || "Login failed");
-      }
-
+      if (!res.ok) throw new Error(data.error || "Login failed");
       router.push("/staff/dashboard");
       router.refresh();
     } catch (err: any) {
@@ -40,82 +43,102 @@ export default function LoginPage() {
     }
   };
 
+  const quickFill = (role: "admin" | "staff") => {
+    if (role === "admin") {
+      setEmail("admin@mediconnect.local");
+      setPassword("Admin@123");
+    } else {
+      setEmail("staff.apollo@mediconnect.local");
+      setPassword("Staff@123");
+    }
+    setError(null);
+  };
+
   return (
-    <div className="min-h-[85vh] flex items-center justify-center px-4 py-12 bg-slate-50/50 dark:bg-slate-950">
-      <div className="w-full max-w-sm space-y-6">
-        {/* Top Centered Brand Logo matching Reference 5 */}
+    <div className="min-h-[calc(100vh-8rem)] flex items-center justify-center px-4 py-12 bg-[#F7F9FC] dark:bg-slate-950">
+      <div className="w-full max-w-md space-y-5">
+
+        {/* Brand */}
         <div className="text-center space-y-2">
-          <Link href="/" className="inline-flex items-center gap-2">
-            <div className="w-7 h-7 rounded-lg bg-[#0284C7] flex items-center justify-center text-white shadow-xs">
-              <svg viewBox="0 0 24 24" fill="none" className="w-4 h-4" stroke="currentColor" strokeWidth="2.5">
-                <path d="M12 2L4 5v6.09c0 5.05 3.41 9.76 8 10.91 4.59-1.15 8-5.86 8-10.91V5l-8-3z" fill="#0284C7" stroke="#0284C7" />
+          <Link href="/" className="inline-flex items-center gap-2.5 group">
+            <div className="w-9 h-9 rounded-xl bg-[#087FBD] flex items-center justify-center shadow-xs group-hover:scale-105 transition-transform">
+              <svg viewBox="0 0 24 24" fill="none" className="w-5 h-5" stroke="currentColor" strokeWidth="2.5">
+                <path d="M12 2L4 5v6.09c0 5.05 3.41 9.76 8 10.91 4.59-1.15 8-5.86 8-10.91V5l-8-3z" fill="#087FBD" stroke="#087FBD" />
                 <path d="M12 8v8M8 12h8" stroke="#FFFFFF" strokeWidth="2.5" strokeLinecap="round" />
               </svg>
             </div>
-            <span className="font-display font-extrabold text-xl text-[#0F172A] dark:text-white tracking-tight">
-              Medi<span className="text-[#0284C7]">Connect</span>
+            <span className="font-display font-extrabold text-2xl text-[#101828] dark:text-white tracking-tight">
+              Medi<span className="text-[#087FBD]">Connect</span>
             </span>
           </Link>
+          <p className="text-sm text-[#475467] dark:text-slate-400">
+            Staff portal — authorized personnel only
+          </p>
         </div>
 
-        {/* Minimal White Auth Card matching Reference 5 */}
-        <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl p-6 sm:p-8 shadow-card space-y-5">
-          <div className="space-y-1">
-            <h1 className="text-2xl font-bold font-display text-slate-900 dark:text-white">
-              Welcome Back
-            </h1>
-            <p className="text-xs text-slate-500 dark:text-slate-400">
-              Enter your email address and we&apos;ll send you a link to reset your password or sign in.
+        {/* Auth card */}
+        <div className="bg-white dark:bg-slate-900 border border-[#E4EAF1] dark:border-slate-800 rounded-2xl p-7 shadow-card space-y-5">
+          <div>
+            <h1 className="font-display text-xl font-bold text-[#101828] dark:text-white">Welcome back</h1>
+            <p className="text-sm text-[#475467] dark:text-slate-400 mt-0.5">
+              Sign in to access the resource management console.
             </p>
           </div>
 
+          {/* Error */}
           {error && (
-            <div className="p-3 rounded-xl bg-rose-50 text-rose-700 dark:bg-rose-950/40 dark:text-rose-400 text-xs flex items-center gap-2 border border-rose-200 dark:border-rose-900">
+            <div className="flex items-center gap-2.5 p-3 rounded-xl bg-rose-50 dark:bg-rose-950/40 border border-rose-200 dark:border-rose-900 text-sm text-rose-700 dark:text-rose-400">
               <AlertCircle className="w-4 h-4 shrink-0" />
               <span>{error}</span>
             </div>
           )}
 
           <form onSubmit={handleSubmit} className="space-y-4">
+            {/* Email */}
             <div className="space-y-1.5">
-              <label className="text-xs font-semibold text-slate-700 dark:text-slate-300 block">
+              <label htmlFor="email" className="text-sm font-semibold text-[#101828] dark:text-slate-200 block">
                 Email Address
               </label>
-              <input
-                type="email"
-                required
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder="you@hospital.in"
-                className="w-full px-3.5 py-2.5 text-xs sm:text-sm bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl text-slate-900 dark:text-white focus:outline-hidden focus:ring-2 focus:ring-[#0284C7]/20 focus:border-[#0284C7]"
-              />
+              <div className="relative">
+                <Mail className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
+                <input
+                  id="email"
+                  type="email"
+                  required
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder="you@hospital.in"
+                  className="w-full pl-10 pr-4 py-2.5 text-sm bg-white dark:bg-slate-800 border border-[#E4EAF1] dark:border-slate-700 rounded-xl text-[#101828] dark:text-white placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-[#087FBD]/20 focus:border-[#087FBD] transition-colors"
+                />
+              </div>
             </div>
 
+            {/* Password */}
             <div className="space-y-1.5">
               <div className="flex items-center justify-between">
-                <label className="text-xs font-semibold text-slate-700 dark:text-slate-300 block">
+                <label htmlFor="password" className="text-sm font-semibold text-[#101828] dark:text-slate-200">
                   Password
                 </label>
-                <Link
-                  href="/forgot-password"
-                  className="text-[11px] font-semibold text-[#0284C7] hover:underline"
-                >
-                  Forgot?
+                <Link href="/forgot-password" className="text-xs font-semibold text-[#087FBD] hover:text-[#0369A1] transition-colors">
+                  Forgot password?
                 </Link>
               </div>
               <div className="relative">
+                <Lock className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
                 <input
+                  id="password"
                   type={showPassword ? "text" : "password"}
                   required
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   placeholder="••••••••"
-                  className="w-full pl-3.5 pr-10 py-2.5 text-xs sm:text-sm bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl text-slate-900 dark:text-white focus:outline-hidden focus:ring-2 focus:ring-[#0284C7]/20 focus:border-[#0284C7]"
+                  className="w-full pl-10 pr-12 py-2.5 text-sm bg-white dark:bg-slate-800 border border-[#E4EAF1] dark:border-slate-700 rounded-xl text-[#101828] dark:text-white placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-[#087FBD]/20 focus:border-[#087FBD] transition-colors"
                 />
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-3 top-3 text-slate-400 hover:text-slate-600"
+                  className="absolute right-3.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 transition-colors"
+                  aria-label={showPassword ? "Hide password" : "Show password"}
                 >
                   {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
                 </button>
@@ -125,48 +148,57 @@ export default function LoginPage() {
             <button
               type="submit"
               disabled={loading}
-              className="w-full py-2.5 px-4 rounded-xl text-xs sm:text-sm font-bold bg-[#0284C7] hover:bg-[#0369A1] text-white shadow-xs transition flex items-center justify-center gap-2 disabled:opacity-50"
+              className="w-full py-2.5 px-4 rounded-xl text-sm font-semibold bg-[#087FBD] hover:bg-[#0369A1] text-white shadow-xs transition-colors flex items-center justify-center gap-2 disabled:opacity-60 disabled:cursor-not-allowed"
             >
-              {loading ? "Authenticating..." : "Sign In to Console"}
+              {loading ? (
+                <>
+                  <span className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                  Authenticating…
+                </>
+              ) : (
+                <>
+                  Sign In to Console <ArrowRight className="w-4 h-4" />
+                </>
+              )}
             </button>
           </form>
 
-          {/* Quick Fill Credentials for Evaluation */}
-          <div className="pt-2 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between text-[11px] text-slate-500">
-            <span>Demo Test:</span>
-            <button
-              type="button"
-              onClick={() => {
-                setEmail("admin@mediconnect.local");
-                setPassword("Admin@123");
-              }}
-              className="text-[#0284C7] font-semibold hover:underline"
-            >
-              Admin Fill
-            </button>
-            <span>•</span>
-            <button
-              type="button"
-              onClick={() => {
-                setEmail("staff.apollo@mediconnect.local");
-                setPassword("Staff@123");
-              }}
-              className="text-[#0284C7] font-semibold hover:underline"
-            >
-              Staff Fill
-            </button>
+          {/* Quick fill for evaluation */}
+          <div className="pt-2 border-t border-[#E4EAF1] dark:border-slate-800">
+            <p className="text-xs text-slate-400 mb-2 font-medium">Hackathon demo — quick fill:</p>
+            <div className="flex gap-2">
+              <button
+                type="button"
+                onClick={() => quickFill("admin")}
+                className="flex-1 py-1.5 px-3 rounded-lg bg-[#F7F9FC] dark:bg-slate-800 border border-[#E4EAF1] dark:border-slate-700 text-xs font-semibold text-[#475467] dark:text-slate-300 hover:border-[#087FBD]/50 hover:text-[#087FBD] transition-colors"
+              >
+                Admin Fill
+              </button>
+              <button
+                type="button"
+                onClick={() => quickFill("staff")}
+                className="flex-1 py-1.5 px-3 rounded-lg bg-[#F7F9FC] dark:bg-slate-800 border border-[#E4EAF1] dark:border-slate-700 text-xs font-semibold text-[#475467] dark:text-slate-300 hover:border-[#087FBD]/50 hover:text-[#087FBD] transition-colors"
+              >
+                Staff Fill
+              </button>
+            </div>
           </div>
         </div>
 
-        {/* Security Privacy Callout matching Reference 5 */}
-        <div className="p-4 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-center space-y-1.5 shadow-xs">
-          <div className="w-8 h-8 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 flex items-center justify-center mx-auto">
-            <Lock className="w-4 h-4" />
-          </div>
-          <p className="text-xs text-slate-500 dark:text-slate-400">
-            For your security, we don&apos;t reveal whether an account exists with this email address.
+        {/* Security note */}
+        <div className="flex items-center gap-3 p-3.5 rounded-xl bg-white dark:bg-slate-900 border border-[#E4EAF1] dark:border-slate-800 shadow-xs">
+          <ShieldCheck className="w-5 h-5 text-emerald-500 shrink-0" />
+          <p className="text-xs text-[#475467] dark:text-slate-400">
+            Secured with JWT session cookies. We never reveal whether an account exists with this email address.
           </p>
         </div>
+
+        <p className="text-center text-sm text-[#475467] dark:text-slate-400">
+          Not a staff member?{" "}
+          <Link href="/" className="font-semibold text-[#087FBD] hover:text-[#0369A1] transition-colors">
+            Go to public portal
+          </Link>
+        </p>
       </div>
     </div>
   );

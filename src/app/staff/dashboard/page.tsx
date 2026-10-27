@@ -133,7 +133,7 @@ function StaffDashboardContent() {
   if (loading) {
     return (
       <div className="py-24 text-center space-y-3">
-        <div className="w-8 h-8 border-3 border-[#0284C7] border-t-transparent rounded-full animate-spin mx-auto" />
+        <div className="w-8 h-8 border-3 border-[#087FBD] border-t-transparent rounded-full animate-spin mx-auto" />
         <p className="text-xs text-slate-500">Connecting to clinical console...</p>
       </div>
     );
@@ -146,9 +146,9 @@ function StaffDashboardContent() {
         <div className="space-y-6">
           {/* Brand Logo in Sidebar */}
           <div className="flex items-center gap-2.5 px-2 py-2">
-            <div className="w-7 h-7 rounded-lg bg-[#0284C7] flex items-center justify-center text-white">
+            <div className="w-7 h-7 rounded-lg bg-[#087FBD] flex items-center justify-center text-white">
               <svg viewBox="0 0 24 24" fill="none" className="w-4 h-4" stroke="currentColor" strokeWidth="2.5">
-                <path d="M12 2L4 5v6.09c0 5.05 3.41 9.76 8 10.91 4.59-1.15 8-5.86 8-10.91V5l-8-3z" fill="#0284C7" stroke="#0284C7" />
+                <path d="M12 2L4 5v6.09c0 5.05 3.41 9.76 8 10.91 4.59-1.15 8-5.86 8-10.91V5l-8-3z" fill="#087FBD" stroke="#087FBD" />
                 <path d="M12 8v8M8 12h8" stroke="#FFFFFF" strokeWidth="2.5" strokeLinecap="round" />
               </svg>
             </div>
@@ -159,7 +159,7 @@ function StaffDashboardContent() {
 
           {/* User Profile Pill matching Reference 7 */}
           <div className="bg-[#1E293B] p-3 rounded-2xl flex items-center gap-3 border border-slate-800">
-            <div className="w-9 h-9 rounded-full bg-[#0284C7] text-white font-bold flex items-center justify-center text-xs">
+            <div className="w-9 h-9 rounded-full bg-[#087FBD] text-white font-bold flex items-center justify-center text-xs">
               {user?.name.charAt(0) || "P"}
             </div>
             <div className="flex-1 min-w-0">
@@ -176,7 +176,7 @@ function StaffDashboardContent() {
               onClick={() => setActiveNav("overview")}
               className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-xs font-semibold transition ${
                 activeNav === "overview"
-                  ? "bg-[#0284C7] text-white shadow-xs"
+                  ? "bg-[#087FBD] text-white shadow-xs"
                   : "text-slate-400 hover:text-white hover:bg-slate-800/60"
               }`}
             >
@@ -188,7 +188,7 @@ function StaffDashboardContent() {
               onClick={() => setActiveNav("facilities")}
               className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-xs font-semibold transition ${
                 activeNav === "facilities"
-                  ? "bg-[#0284C7] text-white shadow-xs"
+                  ? "bg-[#087FBD] text-white shadow-xs"
                   : "text-slate-400 hover:text-white hover:bg-slate-800/60"
               }`}
             >
@@ -200,7 +200,7 @@ function StaffDashboardContent() {
               onClick={() => setActiveNav("equipment")}
               className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-xs font-semibold transition ${
                 activeNav === "equipment"
-                  ? "bg-[#0284C7] text-white shadow-xs"
+                  ? "bg-[#087FBD] text-white shadow-xs"
                   : "text-slate-400 hover:text-white hover:bg-slate-800/60"
               }`}
             >
@@ -212,7 +212,7 @@ function StaffDashboardContent() {
               onClick={() => setActiveNav("blood")}
               className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-xs font-semibold transition ${
                 activeNav === "blood"
-                  ? "bg-[#0284C7] text-white shadow-xs"
+                  ? "bg-[#087FBD] text-white shadow-xs"
                   : "text-slate-400 hover:text-white hover:bg-slate-800/60"
               }`}
             >
@@ -224,7 +224,7 @@ function StaffDashboardContent() {
               onClick={() => setActiveNav("history")}
               className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-xs font-semibold transition ${
                 activeNav === "history"
-                  ? "bg-[#0284C7] text-white shadow-xs"
+                  ? "bg-[#087FBD] text-white shadow-xs"
                   : "text-slate-400 hover:text-white hover:bg-slate-800/60"
               }`}
             >
@@ -236,7 +236,7 @@ function StaffDashboardContent() {
               onClick={() => setActiveNav("notifications")}
               className={`w-full flex items-center justify-between px-3 py-2.5 rounded-xl text-xs font-semibold transition ${
                 activeNav === "notifications"
-                  ? "bg-[#0284C7] text-white shadow-xs"
+                  ? "bg-[#087FBD] text-white shadow-xs"
                   : "text-slate-400 hover:text-white hover:bg-slate-800/60"
               }`}
             >
@@ -251,7 +251,7 @@ function StaffDashboardContent() {
               onClick={() => setActiveNav("settings")}
               className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-xs font-semibold transition ${
                 activeNav === "settings"
-                  ? "bg-[#0284C7] text-white shadow-xs"
+                  ? "bg-[#087FBD] text-white shadow-xs"
                   : "text-slate-400 hover:text-white hover:bg-slate-800/60"
               }`}
             >
@@ -289,7 +289,7 @@ function StaffDashboardContent() {
           <div className="flex items-center gap-3">
             <button
               onClick={() => setEditingModalOpen(true)}
-              className="flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold bg-[#0284C7] hover:bg-[#0369A1] text-white shadow-xs transition"
+              className="flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold bg-[#087FBD] hover:bg-[#0369A1] text-white shadow-xs transition"
             >
               <Edit3 className="w-3.5 h-3.5" />
               <span>Update Resource</span>
@@ -371,7 +371,7 @@ function StaffDashboardContent() {
         <div className="flex items-center gap-2">
           <button
             onClick={() => setActiveNav("overview")}
-            className="px-4 py-1.5 rounded-xl text-xs font-bold bg-[#0284C7] text-white shadow-xs"
+            className="px-4 py-1.5 rounded-xl text-xs font-bold bg-[#087FBD] text-white shadow-xs"
           >
             Facilities
           </button>
@@ -390,7 +390,7 @@ function StaffDashboardContent() {
               <h3 className="font-bold text-sm text-slate-900 dark:text-white">Recent Updates</h3>
               <button
                 onClick={() => setActiveNav("history")}
-                className="text-xs font-bold text-[#0284C7] hover:underline"
+                className="text-xs font-bold text-[#087FBD] hover:underline"
               >
                 View All
               </button>
@@ -590,7 +590,7 @@ function StaffDashboardContent() {
 
             {/* Pagination matching Reference 9 */}
             <div className="flex items-center justify-center gap-1.5 pt-4">
-              <button className="w-8 h-8 rounded-lg text-xs font-bold bg-[#0284C7] text-white">1</button>
+              <button className="w-8 h-8 rounded-lg text-xs font-bold bg-[#087FBD] text-white">1</button>
               <button className="w-8 h-8 rounded-lg text-xs text-slate-600 dark:text-slate-300">2</button>
               <button className="w-8 h-8 rounded-lg text-xs text-slate-600 dark:text-slate-300">3</button>
             </div>
@@ -625,7 +625,7 @@ function StaffDashboardContent() {
           >
             <div className="flex items-center justify-between pb-3 border-b border-slate-100 dark:border-slate-800">
               <h3 className="font-bold text-base text-slate-900 dark:text-white flex items-center gap-2">
-                <Edit3 className="w-4 h-4 text-[#0284C7]" />
+                <Edit3 className="w-4 h-4 text-[#087FBD]" />
                 Update Resource
               </h3>
               <button
@@ -781,7 +781,7 @@ function StaffDashboardContent() {
               <button
                 type="submit"
                 disabled={saving}
-                className="px-5 py-2 rounded-xl text-xs font-bold bg-[#0284C7] hover:bg-[#0369A1] text-white shadow-xs transition"
+                className="px-5 py-2 rounded-xl text-xs font-bold bg-[#087FBD] hover:bg-[#0369A1] text-white shadow-xs transition"
               >
                 {saving ? "Saving..." : "Save Changes"}
               </button>

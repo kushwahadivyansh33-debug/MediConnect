@@ -53,7 +53,7 @@
       "dataSource": "Hospital On-Duty Administration",
       "verified": true,
       "isDemoData": true,
-      "updatedAt": "2026-10-27T20:51:57.114Z",
+      "updatedAt": "2026-10-27T21:21:48.647Z",
       "resources": [
         {
           "id": "res_apl_1",
@@ -63,7 +63,7 @@
           "status": "LIMITED",
           "availableUnits": 5,
           "totalUnits": 45,
-          "lastUpdated": "2026-10-27T20:51:57.114Z",
+          "lastUpdated": "2026-10-27T21:21:48.647Z",
           "notes": "Emergency test audit validation",
           "updatedByUserId": "usr_test_staff"
         },
@@ -661,6 +661,34 @@
   ],
   "auditLogs": [
     {
+      "id": "aud_1793136108649_rj9sm",
+      "facilityId": "fac_apollo_lko",
+      "facilityName": "City Care Hospital",
+      "resourceName": "ICU Beds",
+      "previousStatus": "LIMITED",
+      "newStatus": "LIMITED",
+      "previousUnits": 5,
+      "newUnits": 5,
+      "changedByUserId": "usr_test_staff",
+      "changedByName": "Staff Testing Operator",
+      "timestamp": "2026-10-27T21:21:48.647Z",
+      "notes": "Emergency test audit validation"
+    },
+    {
+      "id": "aud_1793135870306_cw152",
+      "facilityId": "fac_apollo_lko",
+      "facilityName": "City Care Hospital",
+      "resourceName": "ICU Beds",
+      "previousStatus": "LIMITED",
+      "newStatus": "LIMITED",
+      "previousUnits": 5,
+      "newUnits": 5,
+      "changedByUserId": "usr_test_staff",
+      "changedByName": "Staff Testing Operator",
+      "timestamp": "2026-10-27T21:17:50.305Z",
+      "notes": "Emergency test audit validation"
+    },
+    {
       "id": "aud_1793134317114_t1xvy",
       "facilityId": "fac_apollo_lko",
       "facilityName": "City Care Hospital",
@@ -704,6 +732,24 @@
     }
   ],
   "notifications": [
+    {
+      "id": "notif_1793136108649",
+      "title": "City Care Hospital: ICU Beds Updated",
+      "message": "Status changed to LIMITED (5 units available) by Staff Testing Operator.",
+      "category": "UPDATE",
+      "facilityId": "fac_apollo_lko",
+      "read": false,
+      "createdAt": "2026-10-27T21:21:48.647Z"
+    },
+    {
+      "id": "notif_1793135870306",
+      "title": "City Care Hospital: ICU Beds Updated",
+      "message": "Status changed to LIMITED (5 units available) by Staff Testing Operator.",
+      "category": "UPDATE",
+      "facilityId": "fac_apollo_lko",
+      "read": false,
+      "createdAt": "2026-10-27T21:17:50.305Z"
+    },
     {
       "id": "notif_1793134317115",
       "title": "City Care Hospital: ICU Beds Updated",
