@@ -1,0 +1,747 @@
+{
+  "users": [
+    {
+      "id": "usr_admin_01",
+      "name": "Dr. Vikram Seth",
+      "email": "admin@mediconnect.local",
+      "passwordHash": "$2a$10$w1QO8mH4JqU6mI6wQ9O9z.y0Y4P2Vn0fCgE5r4yYn6s2k8tD7d1Ke",
+      "role": "ADMIN",
+      "phone": "+91 98765 43210",
+      "createdAt": "2026-10-27T19:57:24.017Z",
+      "updatedAt": "2026-10-27T19:57:24.017Z"
+    },
+    {
+      "id": "usr_staff_apollo",
+      "name": "Nurse Priya Sharma",
+      "email": "staff.apollo@mediconnect.local",
+      "passwordHash": "$2a$10$w1QO8mH4JqU6mI6wQ9O9z.y0Y4P2Vn0fCgE5r4yYn6s2k8tD7d1Ke",
+      "role": "FACILITY_STAFF",
+      "facilityId": "fac_apollo_lko",
+      "phone": "+91 98765 12345",
+      "createdAt": "2026-10-27T19:57:24.017Z",
+      "updatedAt": "2026-10-27T19:57:24.017Z"
+    },
+    {
+      "id": "usr_staff_max",
+      "name": "Dr. Arvind Mehta",
+      "email": "staff.max@mediconnect.local",
+      "passwordHash": "$2a$10$w1QO8mH4JqU6mI6wQ9O9z.y0Y4P2Vn0fCgE5r4yYn6s2k8tD7d1Ke",
+      "role": "FACILITY_STAFF",
+      "facilityId": "fac_max_del",
+      "phone": "+91 98111 22334",
+      "createdAt": "2026-10-27T19:57:24.017Z",
+      "updatedAt": "2026-10-27T19:57:24.017Z"
+    }
+  ],
+  "facilities": [
+    {
+      "id": "fac_apollo_lko",
+      "name": "Apollo Medics Super Speciality Hospital",
+      "type": "HOSPITAL",
+      "address": "Sector B, Bargawan, LDA Colony, Kanpur Road",
+      "area": "Kanpur Road",
+      "city": "Lucknow",
+      "state": "Uttar Pradesh",
+      "pincode": "226012",
+      "phone": "+91 522 6788888",
+      "emergencyPhone": "+91 522 6788800",
+      "email": "contact@apollomedics.lko",
+      "website": "https://apollomedicslucknow.com",
+      "latitude": 26.7828,
+      "longitude": 80.8988,
+      "totalBeds": 330,
+      "dataSource": "Hospital On-Duty Administration",
+      "verified": true,
+      "isDemoData": true,
+      "updatedAt": "2026-10-27T20:02:53.667Z",
+      "resources": [
+        {
+          "id": "res_apl_1",
+          "facilityId": "fac_apollo_lko",
+          "category": "BEDS",
+          "name": "ICU Beds",
+          "status": "LIMITED",
+          "availableUnits": 5,
+          "totalUnits": 45,
+          "lastUpdated": "2026-10-27T20:02:53.667Z",
+          "notes": "Emergency test audit validation",
+          "updatedByUserId": "usr_test_staff"
+        },
+        {
+          "id": "res_apl_2",
+          "facilityId": "fac_apollo_lko",
+          "category": "EQUIPMENT",
+          "name": "Ventilators",
+          "status": "AVAILABLE",
+          "availableUnits": 6,
+          "totalUnits": 30,
+          "lastUpdated": "2026-10-27T17:57:24.020Z",
+          "notes": "High-end invasive ventilators functional."
+        },
+        {
+          "id": "res_apl_3",
+          "facilityId": "fac_apollo_lko",
+          "category": "DIAGNOSTICS",
+          "name": "X-Ray",
+          "status": "AVAILABLE",
+          "totalUnits": 3,
+          "lastUpdated": "2026-10-27T17:57:24.020Z",
+          "notes": "Digital X-Ray active 24/7."
+        },
+        {
+          "id": "res_apl_4",
+          "facilityId": "fac_apollo_lko",
+          "category": "DIAGNOSTICS",
+          "name": "ECG",
+          "status": "AVAILABLE",
+          "totalUnits": 5,
+          "lastUpdated": "2026-10-27T17:57:24.020Z",
+          "notes": "Emergency 12-lead ECG bedside and diagnostic available."
+        },
+        {
+          "id": "res_apl_5",
+          "facilityId": "fac_apollo_lko",
+          "category": "BEDS",
+          "name": "Oxygen Beds",
+          "status": "AVAILABLE",
+          "availableUnits": 24,
+          "totalUnits": 120,
+          "lastUpdated": "2026-10-27T17:57:24.020Z",
+          "notes": "Dedicated pipeline oxygen supply active."
+        },
+        {
+          "id": "res_apl_6",
+          "facilityId": "fac_apollo_lko",
+          "category": "SPECIALTY",
+          "name": "NICU (Neonatal)",
+          "status": "LIMITED",
+          "availableUnits": 2,
+          "totalUnits": 15,
+          "lastUpdated": "2026-10-27T17:57:24.020Z",
+          "notes": "Only 2 incubators unoccupied. Call ahead for transfer."
+        }
+      ]
+    },
+    {
+      "id": "fac_kgmu_lko",
+      "name": "King George's Medical University (KGMU)",
+      "type": "TRAUMA_CENTER",
+      "address": "Shah Mina Road, Chowk",
+      "area": "Chowk",
+      "city": "Lucknow",
+      "state": "Uttar Pradesh",
+      "pincode": "226003",
+      "phone": "+91 522 2257450",
+      "emergencyPhone": "+91 522 2257540",
+      "email": "trauma@kgmu.org",
+      "website": "https://kgmu.org",
+      "latitude": 26.8687,
+      "longitude": 80.9169,
+      "totalBeds": 4500,
+      "dataSource": "Chief Medical Officer Desk",
+      "verified": true,
+      "isDemoData": true,
+      "updatedAt": "2026-10-27T19:57:24.017Z",
+      "resources": [
+        {
+          "id": "res_kgm_1",
+          "facilityId": "fac_kgmu_lko",
+          "category": "BEDS",
+          "name": "ICU Beds",
+          "status": "LIMITED",
+          "availableUnits": 3,
+          "totalUnits": 120,
+          "lastUpdated": "2026-10-27T19:57:24.017Z",
+          "notes": "Level 1 Trauma ICU currently high occupancy."
+        },
+        {
+          "id": "res_kgm_2",
+          "facilityId": "fac_kgmu_lko",
+          "category": "EQUIPMENT",
+          "name": "Ventilators",
+          "status": "LIMITED",
+          "availableUnits": 4,
+          "totalUnits": 80,
+          "lastUpdated": "2026-10-27T19:57:24.017Z",
+          "notes": "Trauma center ventilator reserves restricted."
+        },
+        {
+          "id": "res_kgm_3",
+          "facilityId": "fac_kgmu_lko",
+          "category": "DIAGNOSTICS",
+          "name": "X-Ray",
+          "status": "AVAILABLE",
+          "totalUnits": 12,
+          "lastUpdated": "2026-10-27T19:57:24.017Z",
+          "notes": "Trauma emergency X-ray running round the clock."
+        },
+        {
+          "id": "res_kgm_4",
+          "facilityId": "fac_kgmu_lko",
+          "category": "DIAGNOSTICS",
+          "name": "ECG",
+          "status": "AVAILABLE",
+          "totalUnits": 20,
+          "lastUpdated": "2026-10-27T19:57:24.017Z",
+          "notes": "Casualty ward ECG stations operational."
+        },
+        {
+          "id": "res_kgm_5",
+          "facilityId": "fac_kgmu_lko",
+          "category": "BEDS",
+          "name": "Oxygen Beds",
+          "status": "AVAILABLE",
+          "availableUnits": 45,
+          "totalUnits": 500,
+          "lastUpdated": "2026-10-27T19:57:24.017Z",
+          "notes": "General ward oxygen manifold functioning smoothly."
+        }
+      ]
+    },
+    {
+      "id": "fac_max_del",
+      "name": "Max Super Speciality Hospital, Saket",
+      "type": "HOSPITAL",
+      "address": "1, 2, Press Enclave Marg, Saket",
+      "area": "Saket",
+      "city": "New Delhi",
+      "state": "Delhi",
+      "pincode": "110017",
+      "phone": "+91 11 26515050",
+      "emergencyPhone": "+91 11 40554055",
+      "email": "care.saket@maxhealthcare.com",
+      "website": "https://maxhealthcare.in",
+      "latitude": 28.5276,
+      "longitude": 77.2144,
+      "totalBeds": 530,
+      "dataSource": "Hospital Operations Room",
+      "verified": true,
+      "isDemoData": true,
+      "updatedAt": "2026-10-27T17:57:24.020Z",
+      "resources": [
+        {
+          "id": "res_max_1",
+          "facilityId": "fac_max_del",
+          "category": "BEDS",
+          "name": "ICU Beds",
+          "status": "AVAILABLE",
+          "availableUnits": 12,
+          "totalUnits": 75,
+          "lastUpdated": "2026-10-27T17:57:24.020Z",
+          "notes": "Cardiac & Neuro ICUs with immediate nurse staffing."
+        },
+        {
+          "id": "res_max_2",
+          "facilityId": "fac_max_del",
+          "category": "EQUIPMENT",
+          "name": "Ventilators",
+          "status": "AVAILABLE",
+          "availableUnits": 9,
+          "totalUnits": 50,
+          "lastUpdated": "2026-10-27T17:57:24.020Z",
+          "notes": "High-frequency oscillatory ventilators in standby."
+        },
+        {
+          "id": "res_max_3",
+          "facilityId": "fac_max_del",
+          "category": "DIAGNOSTICS",
+          "name": "X-Ray",
+          "status": "AVAILABLE",
+          "totalUnits": 6,
+          "lastUpdated": "2026-10-27T17:57:24.020Z",
+          "notes": "Portable bedside and fixed DR systems online."
+        },
+        {
+          "id": "res_max_4",
+          "facilityId": "fac_max_del",
+          "category": "DIAGNOSTICS",
+          "name": "ECG",
+          "status": "AVAILABLE",
+          "totalUnits": 10,
+          "lastUpdated": "2026-10-27T17:57:24.020Z",
+          "notes": "Wireless tele-ECG available in triage."
+        }
+      ]
+    },
+    {
+      "id": "fac_aiims_del",
+      "name": "AIIMS Ansari Nagar (All India Institute of Medical Sciences)",
+      "type": "HOSPITAL",
+      "address": "Sri Aurobindo Marg, Ansari Nagar",
+      "area": "Ansari Nagar",
+      "city": "New Delhi",
+      "state": "Delhi",
+      "pincode": "110029",
+      "phone": "+91 11 26588500",
+      "emergencyPhone": "+91 11 26593638",
+      "email": "emergency@aiims.edu",
+      "website": "https://aiims.edu",
+      "latitude": 28.5672,
+      "longitude": 77.21,
+      "totalBeds": 2478,
+      "dataSource": "National Health Portal Feed",
+      "verified": true,
+      "isDemoData": true,
+      "updatedAt": "2026-10-26T19:57:24.020Z",
+      "resources": [
+        {
+          "id": "res_aim_1",
+          "facilityId": "fac_aiims_del",
+          "category": "BEDS",
+          "name": "ICU Beds",
+          "status": "UNAVAILABLE",
+          "availableUnits": 0,
+          "totalUnits": 150,
+          "lastUpdated": "2026-10-26T19:57:24.020Z",
+          "notes": "General and emergency ICUs full. Triage redirects to Safdarjung Hospital."
+        },
+        {
+          "id": "res_aim_2",
+          "facilityId": "fac_aiims_del",
+          "category": "EQUIPMENT",
+          "name": "Ventilators",
+          "status": "LIMITED",
+          "availableUnits": 1,
+          "totalUnits": 100,
+          "lastUpdated": "2026-10-26T19:57:24.020Z",
+          "notes": "Reserve ventilator in pediatric surgical wing only."
+        },
+        {
+          "id": "res_aim_3",
+          "facilityId": "fac_aiims_del",
+          "category": "DIAGNOSTICS",
+          "name": "X-Ray",
+          "status": "AVAILABLE",
+          "totalUnits": 18,
+          "lastUpdated": "2026-10-26T19:57:24.020Z",
+          "notes": "24/7 emergency digital radiography."
+        },
+        {
+          "id": "res_aim_4",
+          "facilityId": "fac_aiims_del",
+          "category": "DIAGNOSTICS",
+          "name": "ECG",
+          "status": "AVAILABLE",
+          "totalUnits": 25,
+          "lastUpdated": "2026-10-26T19:57:24.020Z",
+          "notes": "Triage and critical resuscitation bay monitors active."
+        }
+      ]
+    },
+    {
+      "id": "fac_medanta_gur",
+      "name": "Medanta - The Medicity",
+      "type": "HOSPITAL",
+      "address": "CH Bakhtawar Singh Road, Sector 38",
+      "area": "Sector 38",
+      "city": "Gurugram",
+      "state": "Haryana",
+      "pincode": "122001",
+      "phone": "+91 124 4141414",
+      "emergencyPhone": "+91 124 4834000",
+      "email": "info@medanta.org",
+      "website": "https://medanta.org",
+      "latitude": 28.4398,
+      "longitude": 77.0422,
+      "totalBeds": 1250,
+      "dataSource": "Medanta Command Center",
+      "verified": true,
+      "isDemoData": true,
+      "updatedAt": "2026-10-27T17:57:24.020Z",
+      "resources": [
+        {
+          "id": "res_med_1",
+          "facilityId": "fac_medanta_gur",
+          "category": "BEDS",
+          "name": "ICU Beds",
+          "status": "AVAILABLE",
+          "availableUnits": 18,
+          "totalUnits": 300,
+          "lastUpdated": "2026-10-27T17:57:24.020Z",
+          "notes": "Medical, Surgical, and Critical Care beds available."
+        },
+        {
+          "id": "res_med_2",
+          "facilityId": "fac_medanta_gur",
+          "category": "EQUIPMENT",
+          "name": "Ventilators",
+          "status": "AVAILABLE",
+          "availableUnits": 14,
+          "totalUnits": 180,
+          "lastUpdated": "2026-10-27T17:57:24.020Z",
+          "notes": "Servo-u and Hamilton ventilators verified ready."
+        },
+        {
+          "id": "res_med_3",
+          "facilityId": "fac_medanta_gur",
+          "category": "DIAGNOSTICS",
+          "name": "X-Ray",
+          "status": "AVAILABLE",
+          "totalUnits": 8,
+          "lastUpdated": "2026-10-27T17:57:24.020Z",
+          "notes": "Diagnostic imaging suites running continuously."
+        },
+        {
+          "id": "res_med_4",
+          "facilityId": "fac_medanta_gur",
+          "category": "DIAGNOSTICS",
+          "name": "ECG",
+          "status": "AVAILABLE",
+          "totalUnits": 14,
+          "lastUpdated": "2026-10-27T17:57:24.020Z",
+          "notes": "Emergency cardiology team on duty."
+        }
+      ]
+    }
+  ],
+  "bloodBanks": [
+    {
+      "id": "bb_apollo_lko",
+      "name": "Apollo Medics Blood Bank & Component Center",
+      "hospitalName": "Apollo Medics Super Speciality Hospital",
+      "address": "Kanpur Road, LDA Colony",
+      "area": "Kanpur Road",
+      "city": "Lucknow",
+      "state": "Uttar Pradesh",
+      "pincode": "226012",
+      "phone": "+91 522 6788889",
+      "operatingHours": "24 Hours / 7 Days",
+      "dataSource": "Apollo Blood Transfusion Department",
+      "verified": true,
+      "isDemoData": true,
+      "updatedAt": "2026-10-27T17:57:24.020Z",
+      "inventory": [
+        {
+          "bloodGroup": "A+",
+          "status": "AVAILABLE",
+          "unitsAvailable": 18,
+          "lastUpdated": "2026-10-27T17:57:24.020Z"
+        },
+        {
+          "bloodGroup": "A-",
+          "status": "LIMITED",
+          "unitsAvailable": 3,
+          "lastUpdated": "2026-10-27T17:57:24.020Z"
+        },
+        {
+          "bloodGroup": "B+",
+          "status": "AVAILABLE",
+          "unitsAvailable": 24,
+          "lastUpdated": "2026-10-27T17:57:24.020Z"
+        },
+        {
+          "bloodGroup": "B-",
+          "status": "LIMITED",
+          "unitsAvailable": 4,
+          "lastUpdated": "2026-10-27T17:57:24.020Z"
+        },
+        {
+          "bloodGroup": "AB+",
+          "status": "AVAILABLE",
+          "unitsAvailable": 11,
+          "lastUpdated": "2026-10-27T17:57:24.020Z"
+        },
+        {
+          "bloodGroup": "AB-",
+          "status": "UNAVAILABLE",
+          "unitsAvailable": 0,
+          "lastUpdated": "2026-10-27T17:57:24.020Z"
+        },
+        {
+          "bloodGroup": "O+",
+          "status": "AVAILABLE",
+          "unitsAvailable": 30,
+          "lastUpdated": "2026-10-27T17:57:24.020Z"
+        },
+        {
+          "bloodGroup": "O-",
+          "status": "LIMITED",
+          "unitsAvailable": 2,
+          "lastUpdated": "2026-10-27T17:57:24.020Z"
+        }
+      ]
+    },
+    {
+      "id": "bb_redcross_lko",
+      "name": "Indian Red Cross Society Blood Bank",
+      "address": "Raja Nawab Ali Road, Kaiserbagh",
+      "area": "Kaiserbagh",
+      "city": "Lucknow",
+      "state": "Uttar Pradesh",
+      "pincode": "226001",
+      "phone": "+91 522 2623321",
+      "operatingHours": "08:00 AM - 08:00 PM",
+      "dataSource": "State Voluntary Blood Donation Council",
+      "verified": true,
+      "isDemoData": true,
+      "updatedAt": "2026-10-26T19:57:24.020Z",
+      "inventory": [
+        {
+          "bloodGroup": "A+",
+          "status": "AVAILABLE",
+          "unitsAvailable": 12,
+          "lastUpdated": "2026-10-26T19:57:24.020Z"
+        },
+        {
+          "bloodGroup": "A-",
+          "status": "UNAVAILABLE",
+          "unitsAvailable": 0,
+          "lastUpdated": "2026-10-26T19:57:24.020Z"
+        },
+        {
+          "bloodGroup": "B+",
+          "status": "AVAILABLE",
+          "unitsAvailable": 19,
+          "lastUpdated": "2026-10-26T19:57:24.020Z"
+        },
+        {
+          "bloodGroup": "B-",
+          "status": "LIMITED",
+          "unitsAvailable": 2,
+          "lastUpdated": "2026-10-26T19:57:24.020Z"
+        },
+        {
+          "bloodGroup": "AB+",
+          "status": "AVAILABLE",
+          "unitsAvailable": 6,
+          "lastUpdated": "2026-10-26T19:57:24.020Z"
+        },
+        {
+          "bloodGroup": "AB-",
+          "status": "UNAVAILABLE",
+          "unitsAvailable": 0,
+          "lastUpdated": "2026-10-26T19:57:24.020Z"
+        },
+        {
+          "bloodGroup": "O+",
+          "status": "AVAILABLE",
+          "unitsAvailable": 15,
+          "lastUpdated": "2026-10-26T19:57:24.020Z"
+        },
+        {
+          "bloodGroup": "O-",
+          "status": "UNAVAILABLE",
+          "unitsAvailable": 0,
+          "lastUpdated": "2026-10-26T19:57:24.020Z"
+        }
+      ]
+    },
+    {
+      "id": "bb_rotary_del",
+      "name": "Rotary Blood Bank & Apheresis Center",
+      "address": "56-57, Tughlakabad Institutional Area",
+      "area": "Tughlakabad",
+      "city": "New Delhi",
+      "state": "Delhi",
+      "pincode": "110062",
+      "phone": "+91 11 29955318",
+      "operatingHours": "24 Hours / 7 Days",
+      "dataSource": "Rotary Central Registry",
+      "verified": true,
+      "isDemoData": true,
+      "updatedAt": "2026-10-27T19:57:24.017Z",
+      "inventory": [
+        {
+          "bloodGroup": "A+",
+          "status": "AVAILABLE",
+          "unitsAvailable": 34,
+          "lastUpdated": "2026-10-27T19:57:24.017Z"
+        },
+        {
+          "bloodGroup": "A-",
+          "status": "AVAILABLE",
+          "unitsAvailable": 7,
+          "lastUpdated": "2026-10-27T19:57:24.017Z"
+        },
+        {
+          "bloodGroup": "B+",
+          "status": "AVAILABLE",
+          "unitsAvailable": 41,
+          "lastUpdated": "2026-10-27T19:57:24.017Z"
+        },
+        {
+          "bloodGroup": "B-",
+          "status": "LIMITED",
+          "unitsAvailable": 5,
+          "lastUpdated": "2026-10-27T19:57:24.017Z"
+        },
+        {
+          "bloodGroup": "AB+",
+          "status": "AVAILABLE",
+          "unitsAvailable": 14,
+          "lastUpdated": "2026-10-27T19:57:24.017Z"
+        },
+        {
+          "bloodGroup": "AB-",
+          "status": "LIMITED",
+          "unitsAvailable": 3,
+          "lastUpdated": "2026-10-27T19:57:24.017Z"
+        },
+        {
+          "bloodGroup": "O+",
+          "status": "AVAILABLE",
+          "unitsAvailable": 52,
+          "lastUpdated": "2026-10-27T19:57:24.017Z"
+        },
+        {
+          "bloodGroup": "O-",
+          "status": "AVAILABLE",
+          "unitsAvailable": 8,
+          "lastUpdated": "2026-10-27T19:57:24.017Z"
+        }
+      ]
+    },
+    {
+      "id": "bb_lion_del",
+      "name": "Lions Blood Bank & Diagnostic Centre",
+      "address": "Shivaji Enclave, Raja Garden",
+      "area": "Raja Garden",
+      "city": "New Delhi",
+      "state": "Delhi",
+      "pincode": "110027",
+      "phone": "+91 11 25102000",
+      "operatingHours": "24 Hours / 7 Days",
+      "dataSource": "Lions Transfusion Committee",
+      "verified": true,
+      "isDemoData": true,
+      "updatedAt": "2026-10-27T17:57:24.020Z",
+      "inventory": [
+        {
+          "bloodGroup": "A+",
+          "status": "AVAILABLE",
+          "unitsAvailable": 20,
+          "lastUpdated": "2026-10-27T17:57:24.020Z"
+        },
+        {
+          "bloodGroup": "A-",
+          "status": "LIMITED",
+          "unitsAvailable": 2,
+          "lastUpdated": "2026-10-27T17:57:24.020Z"
+        },
+        {
+          "bloodGroup": "B+",
+          "status": "AVAILABLE",
+          "unitsAvailable": 28,
+          "lastUpdated": "2026-10-27T17:57:24.020Z"
+        },
+        {
+          "bloodGroup": "B-",
+          "status": "UNAVAILABLE",
+          "unitsAvailable": 0,
+          "lastUpdated": "2026-10-27T17:57:24.020Z"
+        },
+        {
+          "bloodGroup": "AB+",
+          "status": "AVAILABLE",
+          "unitsAvailable": 8,
+          "lastUpdated": "2026-10-27T17:57:24.020Z"
+        },
+        {
+          "bloodGroup": "AB-",
+          "status": "UNAVAILABLE",
+          "unitsAvailable": 0,
+          "lastUpdated": "2026-10-27T17:57:24.020Z"
+        },
+        {
+          "bloodGroup": "O+",
+          "status": "AVAILABLE",
+          "unitsAvailable": 22,
+          "lastUpdated": "2026-10-27T17:57:24.020Z"
+        },
+        {
+          "bloodGroup": "O-",
+          "status": "LIMITED",
+          "unitsAvailable": 1,
+          "lastUpdated": "2026-10-27T17:57:24.020Z"
+        }
+      ]
+    }
+  ],
+  "auditLogs": [
+    {
+      "id": "aud_1793131373668_soeu8",
+      "facilityId": "fac_apollo_lko",
+      "facilityName": "Apollo Medics Super Speciality Hospital",
+      "resourceName": "ICU Beds",
+      "previousStatus": "AVAILABLE",
+      "newStatus": "LIMITED",
+      "previousUnits": 8,
+      "newUnits": 5,
+      "changedByUserId": "usr_test_staff",
+      "changedByName": "Staff Testing Operator",
+      "timestamp": "2026-10-27T20:02:53.667Z",
+      "notes": "Emergency test audit validation"
+    },
+    {
+      "id": "aud_01",
+      "facilityId": "fac_apollo_lko",
+      "facilityName": "Apollo Medics Super Speciality Hospital",
+      "resourceName": "ICU Beds",
+      "previousStatus": "LIMITED",
+      "newStatus": "AVAILABLE",
+      "previousUnits": 4,
+      "newUnits": 8,
+      "changedByUserId": "usr_staff_apollo",
+      "changedByName": "Nurse Priya Sharma",
+      "timestamp": "2026-10-27T17:57:24.020Z",
+      "notes": "4 patients discharged from critical step-down wing."
+    },
+    {
+      "id": "aud_02",
+      "facilityId": "fac_apollo_lko",
+      "facilityName": "Apollo Medics Super Speciality Hospital",
+      "resourceName": "Ventilators",
+      "previousStatus": "AVAILABLE",
+      "newStatus": "AVAILABLE",
+      "previousUnits": 5,
+      "newUnits": 6,
+      "changedByUserId": "usr_staff_apollo",
+      "changedByName": "Nurse Priya Sharma",
+      "timestamp": "2026-10-27T17:57:24.020Z",
+      "notes": "Routine calibration completed on Draeger unit."
+    }
+  ],
+  "notifications": [
+    {
+      "id": "notif_1793131373668",
+      "title": "Apollo Medics Super Speciality Hospital: ICU Beds Updated",
+      "message": "Status changed to LIMITED (5 units available) by Staff Testing Operator.",
+      "category": "UPDATE",
+      "facilityId": "fac_apollo_lko",
+      "read": false,
+      "createdAt": "2026-10-27T20:02:53.667Z"
+    },
+    {
+      "id": "notif_01",
+      "title": "DEMO DATA: High Demand Alert for O- Negative",
+      "message": "O-Negative reported stock below reserve minimum across 2 facilities in Lucknow.",
+      "category": "ALERT",
+      "read": false,
+      "createdAt": "2026-10-27T17:57:24.020Z"
+    },
+    {
+      "id": "notif_02",
+      "title": "Resource Audit Completed",
+      "message": "Apollo Medics updated ICU and ventilator availability at 11:30 AM.",
+      "category": "UPDATE",
+      "facilityId": "fac_apollo_lko",
+      "read": false,
+      "createdAt": "2026-10-27T17:57:24.020Z"
+    },
+    {
+      "id": "notif_03",
+      "title": "Demonstration System Note",
+      "message": "Welcome to MediConnect National Hackathon prototype. All data is tagged DEMO DATA.",
+      "category": "SYSTEM",
+      "read": true,
+      "createdAt": "2026-10-26T19:57:24.020Z"
+    }
+  ],
+  "passwordResetTokens": [
+    {
+      "email": "admin@mediconnect.local",
+      "token": "cb5c8b32f38af3edcef14c35ad401fe22932ed849d94f127",
+      "expiresAt": "2026-10-27T20:15:32.157Z"
+    }
+  ]
+}

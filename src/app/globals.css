@@ -1,0 +1,116 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 210 20% 98%;
+    --foreground: 222 47% 11%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 222 47% 11%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 222 47% 11%;
+
+    --primary: 205 84% 38%;
+    --primary-foreground: 210 40% 98%;
+    --primary-hover: 205 85% 32%;
+
+    --secondary: 215 20% 93%;
+    --secondary-foreground: 222 47% 11%;
+
+    --muted: 210 24% 94%;
+    --muted-foreground: 215 16% 47%;
+
+    --accent: 173 58% 39%;
+    --accent-foreground: 210 40% 98%;
+
+    --destructive: 0 84% 45%;
+    --destructive-foreground: 210 40% 98%;
+
+    --success: 152 57% 38%;
+    --success-foreground: 210 40% 98%;
+
+    --warning: 38 92% 50%;
+    --warning-foreground: 222 47% 11%;
+
+    --border: 214 25% 88%;
+    --input: 214 25% 88%;
+    --ring: 205 84% 38%;
+
+    --radius: 0.625rem;
+  }
+
+  .dark {
+    --background: 224 45% 7%;
+    --foreground: 210 40% 98%;
+
+    --card: 224 40% 11%;
+    --card-foreground: 210 40% 98%;
+
+    --popover: 224 40% 11%;
+    --popover-foreground: 210 40% 98%;
+
+    --primary: 204 88% 53%;
+    --primary-foreground: 222 47% 11%;
+    --primary-hover: 204 88% 46%;
+
+    --secondary: 222 35% 18%;
+    --secondary-foreground: 210 40% 98%;
+
+    --muted: 223 30% 16%;
+    --muted-foreground: 215 20% 65%;
+
+    --accent: 173 58% 48%;
+    --accent-foreground: 222 47% 11%;
+
+    --destructive: 0 75% 55%;
+    --destructive-foreground: 210 40% 98%;
+
+    --success: 152 62% 46%;
+    --success-foreground: 222 47% 11%;
+
+    --warning: 41 96% 56%;
+    --warning-foreground: 222 47% 11%;
+
+    --border: 222 30% 20%;
+    --input: 222 30% 20%;
+    --ring: 204 88% 53%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+  }
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-display tracking-tight text-foreground font-semibold;
+  }
+}
+
+/* Tabular digits for metric data */
+.font-tabular {
+  font-feature-settings: "tnum";
+  font-variant-numeric: tabular-nums;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: hsl(var(--muted-foreground) / 0.3);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: hsl(var(--muted-foreground) / 0.5);
+}
