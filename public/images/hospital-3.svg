@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 260" width="100%" height="100%">
+  <defs>
+    <linearGradient id="sky3" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#38BDF8" />
+      <stop offset="100%" stop-color="#F8FAFC" />
+    </linearGradient>
+  </defs>
+  <rect width="400" height="260" fill="url(#sky3)" />
+  <!-- Modern Low-rise Pavilion Hospital (LifeCare Hospital) -->
+  <polygon points="40,110 180,90 180,240 40,245" fill="#E2E8F0" />
+  <polygon points="180,90 360,95 360,240 180,240" fill="#FFFFFF" />
+  
+  <g fill="#0284C7">
+    <rect x="200" y="115" width="45" height="30" rx="3" />
+    <rect x="260" y="115" width="45" height="30" rx="3" />
+    <rect x="200" y="160" width="45" height="30" rx="3" />
+    <rect x="260" y="160" width="45" height="30" rx="3" />
+  </g>
+
+  <g fill="#0369A1">
+    <polygon points="60,125 105,120 105,150 60,154" />
+    <polygon points="120,118 165,113 165,143 120,147" />
+    <polygon points="60,170 105,165 105,195 60,199" />
+    <polygon points="120,163 165,158 165,188 120,192" />
+  </g>
+  
+  <circle cx="230" cy="70" r="14" fill="#0284C7" />
+  <rect x="227" y="62" width="6" height="16" fill="#FFFFFF" rx="1" />
+  <rect x="222" y="67" width="16" height="6" fill="#FFFFFF" rx="1" />
+  
+  <rect y="235" width="400" height="25" fill="#10B981" />
+  <circle cx="330" cy="235" r="24" fill="#059669" />
+  <circle cx="360" cy="235" r="18" fill="#047857" />
+</svg>

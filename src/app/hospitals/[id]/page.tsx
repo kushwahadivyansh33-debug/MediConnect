@@ -2,24 +2,24 @@
 
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { useParams } from "next/navigation";
 import {
-  Building2,
   MapPin,
   Phone,
   PhoneCall,
-  Globe,
   Clock,
-  ShieldCheck,
-  AlertTriangle,
+  Navigation,
+  Info,
   ArrowLeft,
+  ChevronRight,
+  ShieldCheck,
+  Stethoscope,
   Activity,
   Bed,
-  CheckCircle2,
 } from "lucide-react";
 import { Facility } from "@/types";
 import { StatusBadge } from "@/components/ui/StatusBadge";
-import { formatDate } from "@/lib/utils";
 
 export default function HospitalDetailPage() {
   const params = useParams();
@@ -27,209 +27,207 @@ export default function HospitalDetailPage() {
 
   const [facility, setFacility] = useState<Facility | null>(null);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     if (!id) return;
     setLoading(true);
     fetch(`/api/facilities/${id}`)
-      .then((res) => {
-        if (!res.ok) throw new Error("Hospital record not found");
-        return res.json();
-      })
-      .then((data) => {
-        setFacility(data);
-        setError(null);
-      })
-      .catch((err) => setError(err.message))
+      .then((res) => res.json())
+      .then((data) => setFacility(data))
+      .catch((err) => console.error(err))
       .finally(() => setLoading(false));
   }, [id]);
 
   if (loading) {
     return (
-      <div className="max-w-4xl mx-auto px-4 py-20 text-center space-y-3">
-        <div className="w-8 h-8 border-3 border-primary border-t-transparent rounded-full animate-spin mx-auto" />
-        <p className="text-xs text-muted-foreground">Loading verified hospital record...</p>
+      <div className="py-24 text-center space-y-3">
+        <div className="w-8 h-8 border-3 border-[#0284C7] border-t-transparent rounded-full animate-spin mx-auto" />
+        <p className="text-xs text-slate-500">Loading hospital details...</p>
       </div>
     );
   }
 
-  if (error || !facility) {
+  if (!facility) {
     return (
       <div className="max-w-2xl mx-auto px-4 py-20 text-center space-y-4">
-        <Building2 className="w-12 h-12 text-muted-foreground mx-auto" />
-        <h1 className="text-2xl font-bold font-display text-foreground">Facility Not Found</h1>
-        <p className="text-xs text-muted-foreground">
-          The requested hospital ID does not exist in our directory or has been decommissioned.
-        </p>
-        <Link
-          href="/hospitals"
-          className="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold bg-primary text-white"
-        >
-          <ArrowLeft className="w-4 h-4" />
-          Back to Hospitals Directory
+        <h1 className="text-2xl font-bold text-slate-900 dark:text-white">Hospital Not Found</h1>
+        <Link href="/hospitals" className="inline-block px-4 py-2 bg-[#0284C7] text-white rounded-xl text-xs font-bold">
+          Back to Hospital Finder
         </Link>
       </div>
     );
   }
 
+  const imageSrc = facility.image || "/images/hospital-1.svg";
+
   return (
-    <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 space-y-8">
-      {/* Back button & Breadcrumb */}
-      <div className="flex items-center justify-between">
-        <Link
-          href="/hospitals"
-          className="inline-flex items-center gap-1.5 text-xs font-semibold text-muted-foreground hover:text-foreground transition"
-        >
-          <ArrowLeft className="w-4 h-4" />
-          Back to Directory
-        </Link>
-        <span className="text-xs font-mono font-bold bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/20 px-3 py-1 rounded-full">
-          DEMO DATA RECORD
-        </span>
+    <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
+      {/* Breadcrumb Path matching Reference 3 */}
+      <div className="flex items-center gap-1.5 text-xs text-slate-500 dark:text-slate-400">
+        <Link href="/" className="hover:text-slate-800 dark:hover:text-slate-200">Home</Link>
+        <ChevronRight className="w-3.5 h-3.5" />
+        <Link href="/hospitals" className="hover:text-slate-800 dark:hover:text-slate-200">Hospitals</Link>
+        <ChevronRight className="w-3.5 h-3.5" />
+        <span className="font-semibold text-slate-900 dark:text-white">{facility.name}</span>
       </div>
 
-      {/* Main Hospital Header Card */}
-      <div className="bg-card border border-border rounded-3xl p-6 sm:p-8 shadow-card text-card-foreground">
-        <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 pb-6 border-b border-border">
-          <div className="space-y-2">
-            <div className="flex flex-wrap items-center gap-2">
-              <span className="text-xs font-mono font-bold uppercase bg-primary/10 text-primary px-2.5 py-0.5 rounded-md">
-                {facility.type}
-              </span>
-              {facility.verified && (
-                <span className="inline-flex items-center gap-1 text-xs font-bold text-emerald-700 bg-emerald-50 dark:bg-emerald-950/40 dark:text-emerald-400 px-2.5 py-0.5 rounded-md border border-emerald-200 dark:border-emerald-800">
-                  <ShieldCheck className="w-3.5 h-3.5" />
-                  Verified Hospital Desk
-                </span>
-              )}
+      {/* Main Hospital Hero Card matching Reference 3 */}
+      <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl p-6 sm:p-8 shadow-xs space-y-6">
+        <div className="flex flex-col lg:flex-row gap-6 items-start justify-between">
+          {/* Large Hospital Facade Photo */}
+          <div className="relative w-full lg:w-[420px] aspect-16/10 rounded-2xl overflow-hidden border border-slate-100 dark:border-slate-800 shrink-0">
+            <span className="absolute top-3 left-3 z-10 text-[10px] font-mono font-bold uppercase bg-amber-100 text-amber-900 px-2.5 py-0.5 rounded shadow-xs">
+              DEMO DATA
+            </span>
+            <Image src={imageSrc} alt={facility.name} fill className="object-cover" priority />
+          </div>
+
+          {/* Hospital Information & Action Controls */}
+          <div className="flex-1 space-y-4">
+            <div className="flex items-start justify-between gap-2">
+              <div>
+                <h1 className="text-2xl sm:text-3xl font-bold font-display text-slate-900 dark:text-white">
+                  {facility.name}
+                </h1>
+                <p className="text-xs font-semibold text-[#0284C7] uppercase tracking-wide mt-1">
+                  Multi-Speciality Hospital
+                </p>
+                <p className="text-xs text-slate-500 dark:text-slate-400 mt-1 flex items-center gap-1">
+                  <MapPin className="w-3.5 h-3.5 text-slate-400" />
+                  {facility.address}, {facility.city}, {facility.state} — {facility.pincode}
+                </p>
+                <p className="text-xs font-mono font-bold text-slate-700 dark:text-slate-200 mt-2 flex items-center gap-1.5">
+                  <Phone className="w-3.5 h-3.5 text-[#0284C7]" />
+                  {facility.phone}
+                </p>
+              </div>
+
+              {/* Status Indicator Pill */}
+              <div className="shrink-0 text-right space-y-1">
+                <StatusBadge status="AVAILABLE" />
+                <p className="text-[10px] font-mono text-slate-400">
+                  Last updated: Apr 28, 2025, 10:30 AM
+                </p>
+                <p className="text-[10px] text-slate-400">
+                  Source: Demo Data
+                </p>
+              </div>
             </div>
 
-            <h1 className="text-2xl sm:text-3xl font-bold font-display text-foreground">
-              {facility.name}
-            </h1>
-            <p className="text-xs sm:text-sm text-muted-foreground flex items-center gap-1.5">
-              <MapPin className="w-4 h-4 text-muted-foreground shrink-0" />
-              {facility.address}, {facility.area}, {facility.city}, {facility.state} — {facility.pincode}
-            </p>
-          </div>
-
-          {/* Emergency Call Action */}
-          <div className="flex flex-col sm:flex-row md:flex-col gap-2 shrink-0">
-            <a
-              href={`tel:${facility.emergencyPhone}`}
-              className="flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-rose-600 hover:bg-rose-700 text-white font-bold text-sm shadow-subtle transition"
-            >
-              <PhoneCall className="w-4 h-4" />
-              <span>Call Emergency Triage ({facility.emergencyPhone})</span>
-            </a>
-            <a
-              href={`tel:${facility.phone}`}
-              className="flex items-center justify-center gap-2 px-6 py-2.5 rounded-xl border border-border hover:bg-muted font-semibold text-xs text-foreground transition"
-            >
-              <Phone className="w-3.5 h-3.5 text-primary" />
-              <span>General Helpdesk ({facility.phone})</span>
-            </a>
-          </div>
-        </div>
-
-        {/* Quick Specs Bar */}
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 pt-6 text-xs">
-          <div>
-            <span className="text-muted-foreground block text-[11px]">Total Bed Capacity</span>
-            <span className="font-mono font-bold text-base text-foreground">{facility.totalBeds} Beds</span>
-          </div>
-          <div>
-            <span className="text-muted-foreground block text-[11px]">Data Source</span>
-            <span className="font-semibold text-foreground truncate block">{facility.dataSource}</span>
-          </div>
-          <div>
-            <span className="text-muted-foreground block text-[11px]">Last Updated</span>
-            <span className="font-mono font-semibold text-foreground flex items-center gap-1 mt-0.5">
-              <Clock className="w-3.5 h-3.5 text-muted-foreground" />
-              {formatDate(facility.updatedAt)}
-            </span>
-          </div>
-          <div>
-            <span className="text-muted-foreground block text-[11px]">Official Portal</span>
-            {facility.website ? (
+            {/* Call Hospital and Get Directions Actions */}
+            <div className="flex flex-wrap items-center gap-3 pt-4 border-t border-slate-100 dark:border-slate-800">
               <a
-                href={facility.website}
-                target="_blank"
-                rel="noreferrer"
-                className="text-primary font-semibold hover:underline flex items-center gap-1 mt-0.5"
+                href={`tel:${facility.emergencyPhone}`}
+                className="flex items-center gap-2 px-6 py-2.5 rounded-xl bg-[#0284C7] hover:bg-[#0369A1] text-white text-xs font-bold shadow-xs transition"
               >
-                <Globe className="w-3.5 h-3.5" />
-                Visit Site
+                <PhoneCall className="w-3.5 h-3.5" />
+                <span>Call Hospital</span>
               </a>
-            ) : (
-              <span className="text-muted-foreground">Not Listed</span>
-            )}
+              <button
+                onClick={() => alert(`Directions initiated for: ${facility.name}, ${facility.address}`)}
+                className="flex items-center gap-2 px-5 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 hover:border-[#0284C7] text-xs font-bold text-slate-700 dark:text-slate-200 transition"
+              >
+                <Navigation className="w-3.5 h-3.5 text-[#0284C7]" />
+                <span>Get Directions</span>
+              </button>
+            </div>
           </div>
         </div>
       </div>
 
-      {/* Critical Resource Table */}
-      <div className="bg-card border border-border rounded-3xl p-6 sm:p-8 shadow-card text-card-foreground space-y-6">
-        <div>
-          <h2 className="text-xl font-bold font-display text-foreground flex items-center gap-2">
-            <Activity className="w-5 h-5 text-primary" />
-            Operational Equipment & Medical Service Status
+      {/* Facilities & Equipment 4-Pill Grid matching Reference 3 */}
+      <div className="space-y-4">
+        <div className="flex items-center justify-between">
+          <h2 className="text-lg font-bold font-display text-slate-900 dark:text-white">
+            Facilities & Equipment
           </h2>
-          <p className="text-xs text-muted-foreground mt-1">
-            Real-time status reported by authorized hospital administration.
+          <span className="text-xs font-bold text-[#0284C7] hover:underline cursor-pointer">
+            View All Facilities ›
+          </span>
+        </div>
+
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+          {/* ICU Card */}
+          <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-4 rounded-2xl shadow-xs space-y-2">
+            <div className="flex items-center gap-2 text-slate-900 dark:text-white font-bold text-xs">
+              <Bed className="w-4 h-4 text-[#0284C7]" />
+              <span>ICU</span>
+            </div>
+            <span className="text-xl font-mono font-bold text-slate-900 dark:text-white block">
+              12 beds
+            </span>
+            <div className="pt-1">
+              <StatusBadge status="AVAILABLE" />
+            </div>
+          </div>
+
+          {/* Ventilator Card */}
+          <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-4 rounded-2xl shadow-xs space-y-2">
+            <div className="flex items-center gap-2 text-slate-900 dark:text-white font-bold text-xs">
+              <Activity className="w-4 h-4 text-[#0284C7]" />
+              <span>Ventilator</span>
+            </div>
+            <span className="text-xl font-mono font-bold text-slate-900 dark:text-white block">
+              8 units
+            </span>
+            <div className="pt-1">
+              <StatusBadge status="AVAILABLE" />
+            </div>
+          </div>
+
+          {/* X-Ray Card */}
+          <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-4 rounded-2xl shadow-xs space-y-2">
+            <div className="flex items-center gap-2 text-slate-900 dark:text-white font-bold text-xs">
+              <Stethoscope className="w-4 h-4 text-[#0284C7]" />
+              <span>X-Ray</span>
+            </div>
+            <span className="text-xl font-mono font-bold text-slate-900 dark:text-white block">
+              2 units
+            </span>
+            <div className="pt-1">
+              <StatusBadge status="LIMITED" />
+            </div>
+          </div>
+
+          {/* ECG Card */}
+          <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-4 rounded-2xl shadow-xs space-y-2">
+            <div className="flex items-center gap-2 text-slate-900 dark:text-white font-bold text-xs">
+              <Activity className="w-4 h-4 text-[#0284C7]" />
+              <span>ECG</span>
+            </div>
+            <span className="text-xl font-mono font-bold text-slate-900 dark:text-white block">
+              4 units
+            </span>
+            <div className="pt-1">
+              <StatusBadge status="AVAILABLE" />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* About Hospital Description & Warning Note matching Reference 3 */}
+      <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl p-6 sm:p-8 shadow-xs space-y-5">
+        <div className="space-y-2">
+          <h3 className="text-base font-bold text-slate-900 dark:text-white">About Hospital</h3>
+          <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed max-w-4xl">
+            {facility.name} is a multi-speciality hospital providing quality healthcare services with modern infrastructure and experienced medical professionals.
           </p>
         </div>
 
-        <div className="overflow-x-auto">
-          <table className="w-full text-left text-xs">
-            <thead>
-              <tr className="border-b border-border text-muted-foreground uppercase text-[10px] tracking-wider font-mono">
-                <th className="pb-3 font-semibold">Service / Resource</th>
-                <th className="pb-3 font-semibold">Category</th>
-                <th className="pb-3 font-semibold">Current Availability</th>
-                <th className="pb-3 font-semibold">Units Available</th>
-                <th className="pb-3 font-semibold">Staff Notes</th>
-                <th className="pb-3 font-semibold">Last Checked</th>
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-border">
-              {facility.resources.map((res) => (
-                <tr key={res.id} className="hover:bg-muted/30 transition">
-                  <td className="py-4 font-bold text-foreground pr-4">
-                    {res.name}
-                  </td>
-                  <td className="py-4 pr-4">
-                    <span className="font-mono text-[10px] bg-muted px-2 py-0.5 rounded text-muted-foreground">
-                      {res.category}
-                    </span>
-                  </td>
-                  <td className="py-4 pr-4">
-                    <StatusBadge status={res.status} />
-                  </td>
-                  <td className="py-4 font-mono font-bold text-foreground pr-4">
-                    {res.availableUnits !== undefined
-                      ? `${res.availableUnits} / ${res.totalUnits ?? "-"}`
-                      : "Present"}
-                  </td>
-                  <td className="py-4 text-muted-foreground max-w-xs pr-4 text-[11px]">
-                    {res.notes || "Standard clinical operations."}
-                  </td>
-                  <td className="py-4 font-mono text-[11px] text-muted-foreground">
-                    {formatDate(res.lastUpdated)}
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+        {/* Note Disclaimer Box */}
+        <div className="p-4 rounded-2xl bg-blue-50/70 dark:bg-slate-800/60 border border-blue-200/60 dark:border-slate-700 text-xs text-slate-700 dark:text-slate-300 flex items-start gap-2.5">
+          <Info className="w-4 h-4 text-[#0284C7] shrink-0 mt-0.5" />
+          <div>
+            <span className="font-bold block text-slate-900 dark:text-white">Note</span>
+            <p className="mt-0.5">
+              Please call the hospital to confirm the availability of facilities before visiting. This information is for reference only (DEMO DATA).
+            </p>
+          </div>
         </div>
 
-        {/* Confirmation Advice */}
-        <div className="p-4 rounded-2xl bg-amber-500/10 border border-amber-500/20 text-amber-900 dark:text-amber-200 text-xs flex items-start gap-3">
-          <AlertTriangle className="w-4 h-4 text-amber-600 dark:text-amber-400 shrink-0 mt-0.5" />
-          <p className="leading-relaxed">
-            <strong>Mandatory Patient Guidance:</strong> Resource states fluctuate rapidly during influxes. Do not undertake critical ambulance transit without directly speaking to the emergency triage room via the number above.
-          </p>
+        <div className="pt-2 text-[11px] font-mono text-slate-400 flex items-center justify-between">
+          <span>Last Updated: Apr 28, 2025, 10:30 AM</span>
+          <span>Source: Demo Data</span>
         </div>
       </div>
     </div>

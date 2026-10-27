@@ -1,0 +1,134 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#EFF6FF" />
+      <stop offset="100%" stop-color="#DBEAFE" />
+    </linearGradient>
+    <linearGradient id="skyGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#BAE6FD" />
+      <stop offset="100%" stop-color="#E0F2FE" />
+    </linearGradient>
+    <linearGradient id="glassGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#38BDF8" stop-opacity="0.85" />
+      <stop offset="100%" stop-color="#0284C7" stop-opacity="0.95" />
+    </linearGradient>
+    <linearGradient id="coatGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFFFFF" />
+      <stop offset="100%" stop-color="#F1F5F9" />
+    </linearGradient>
+    <linearGradient id="scrubsGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0284C7" />
+      <stop offset="100%" stop-color="#0369A1" />
+    </linearGradient>
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="12" stdDeviation="16" flood-color="#0F172A" flood-opacity="0.12" />
+    </filter>
+  </defs>
+
+  <!-- Background Canvas -->
+  <rect width="800" height="600" rx="24" fill="url(#bgGrad)" />
+
+  <!-- Abstract Hospital Architecture in Background -->
+  <g transform="translate(60, 60)" filter="url(#shadow)">
+    <!-- Sky backdrop box for hospital -->
+    <rect x="0" y="20" width="420" height="420" rx="16" fill="url(#skyGrad)" />
+    
+    <!-- Clouds -->
+    <path d="M40 70 q20 -20 45 0 q25 -25 50 0 q20 -10 35 15 h-130 z" fill="#FFFFFF" opacity="0.6" />
+    <path d="M240 90 q15 -15 35 0 q20 -20 40 0 q15 -8 30 12 h-105 z" fill="#FFFFFF" opacity="0.5" />
+
+    <!-- Hospital Main Building -->
+    <polygon points="120,120 320,80 320,380 120,400" fill="#E2E8F0" />
+    <polygon points="40,140 120,120 120,400 40,410" fill="#CBD5E1" />
+
+    <!-- Glass Windows Facade Grid -->
+    <g fill="url(#glassGrad)">
+      <!-- Left Wing Windows -->
+      <polygon points="50,160 110,145 110,185 50,195" />
+      <polygon points="50,210 110,195 110,235 50,245" />
+      <polygon points="50,260 110,245 110,285 50,295" />
+      <polygon points="50,310 110,295 110,335 50,345" />
+
+      <!-- Center Main Face Windows -->
+      <polygon points="140,140 220,125 220,165 140,175" />
+      <polygon points="235,120 305,108 305,148 235,158" />
+
+      <polygon points="140,190 220,175 220,215 140,225" />
+      <polygon points="235,170 305,158 305,198 235,208" />
+
+      <polygon points="140,240 220,225 220,265 140,275" />
+      <polygon points="235,220 305,208 305,248 235,258" />
+
+      <polygon points="140,290 220,275 220,315 140,325" />
+      <polygon points="235,270 305,258 305,298 235,308" />
+    </g>
+
+    <!-- Hospital Red/Blue Cross Emblem on Roof -->
+    <g transform="translate(180, 50)">
+      <circle cx="25" cy="25" r="22" fill="#0284C7" />
+      <rect x="21" y="11" width="8" height="28" rx="2" fill="#FFFFFF" />
+      <rect x="11" y="21" width="28" height="8" rx="2" fill="#FFFFFF" />
+    </g>
+
+    <!-- Landscaping / Trees at base -->
+    <circle cx="80" cy="400" r="24" fill="#10B981" opacity="0.8" />
+    <circle cx="120" cy="405" r="20" fill="#059669" />
+    <circle cx="300" cy="385" r="28" fill="#10B981" opacity="0.9" />
+    <circle cx="340" cy="390" r="22" fill="#047857" />
+  </g>
+
+  <!-- Foreground: Confident Healthcare Doctor Professional -->
+  <g transform="translate(440, 80)" filter="url(#shadow)">
+    <!-- Aura Glow behind doctor -->
+    <circle cx="170" cy="220" r="160" fill="#0284C7" opacity="0.12" />
+
+    <!-- Hair -->
+    <path d="M120 110 q50 -50 110 0 q30 40 10 110 q-10 30 -20 50 q-80 0 -90 -40 q-20 -50 -10 -120 z" fill="#1E293B" />
+
+    <!-- Face Base -->
+    <path d="M135 130 q35 60 70 0 q15 35 -10 65 q-35 30 -50 -10 z" fill="#FBBF24" opacity="0.65" />
+    <ellipse cx="170" cy="155" rx="36" ry="44" fill="#FCD34D" />
+
+    <!-- Hair Strands Front -->
+    <path d="M130 135 q35 -25 80 -10 q-20 20 -30 35 z" fill="#0F172A" />
+
+    <!-- Eyes and Smile -->
+    <ellipse cx="156" cy="152" rx="4" ry="2.5" fill="#0F172A" />
+    <ellipse cx="184" cy="152" rx="4" ry="2.5" fill="#0F172A" />
+    <path d="M152 144 q8 -4 14 0" stroke="#0F172A" stroke-width="2" fill="none" stroke-linecap="round" />
+    <path d="M178 144 q8 -4 14 0" stroke="#0F172A" stroke-width="2" fill="none" stroke-linecap="round" />
+    <path d="M162 170 q8 8 16 0" stroke="#E11D48" stroke-width="2.5" fill="none" stroke-linecap="round" />
+
+    <!-- Scrubs Inner Collar -->
+    <polygon points="150,215 170,240 190,215 170,200" fill="url(#scrubsGrad)" />
+
+    <!-- White Lab Coat / Doctor Coat Body -->
+    <path d="M90 280 q30 -65 60 -75 l20 35 l20 -35 q30 10 60 75 l30 200 h-220 z" fill="url(#coatGrad)" />
+    <!-- Coat Lapels -->
+    <polygon points="150,205 130,280 162,290 170,240" fill="#F8FAFC" stroke="#E2E8F0" />
+    <polygon points="190,205 210,280 178,290 170,240" fill="#F8FAFC" stroke="#E2E8F0" />
+
+    <!-- Stethoscope -->
+    <path d="M142 225 q-15 40 10 70 q18 20 18 45" fill="none" stroke="#475569" stroke-width="5" stroke-linecap="round" />
+    <path d="M198 225 q15 40 -10 70 q-18 20 -18 45" fill="none" stroke="#475569" stroke-width="5" stroke-linecap="round" />
+    <circle cx="170" cy="350" r="14" fill="#94A3B8" stroke="#334155" stroke-width="3" />
+    <circle cx="170" cy="350" r="7" fill="#CBD5E1" />
+  </g>
+
+  <!-- Floating Medical Verification Badges (Matching Reference Illustration) -->
+  <g transform="translate(40, 420)" filter="url(#shadow)">
+    <rect width="180" height="52" rx="14" fill="#FFFFFF" />
+    <circle cx="28" cy="26" r="14" fill="#DCFCE7" />
+    <path d="M22 26 l4 4 l8 -8" stroke="#16A34A" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round" />
+    <text x="50" y="24" font-family="system-ui, sans-serif" font-size="11" font-weight="700" fill="#0F172A">Live Verified Beds</text>
+    <text x="50" y="38" font-family="system-ui, sans-serif" font-size="10" font-weight="600" fill="#16A34A">Updated Just Now</text>
+  </g>
+
+  <g transform="translate(250, 470)" filter="url(#shadow)">
+    <rect width="170" height="52" rx="14" fill="#FFFFFF" />
+    <circle cx="28" cy="26" r="14" fill="#FFE4E6" />
+    <path d="M28 17 c-4 5 -8 9 -8 13 a8 8 0 0 0 16 0 c0 -4 -4 -8 -8 -13 z" fill="#E11D48" />
+    <text x="50" y="24" font-family="system-ui, sans-serif" font-size="11" font-weight="700" fill="#0F172A">Blood Inventory</text>
+    <text x="50" y="38" font-family="system-ui, sans-serif" font-size="10" font-weight="600" fill="#E11D48">8 Groups Tracked</text>
+  </g>
+</svg>

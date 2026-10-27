@@ -2,318 +2,233 @@
 
 import React from "react";
 import Link from "next/link";
+import Image from "next/image";
 import {
-  Hospital,
-  Droplet,
-  Clock,
-  ShieldCheck,
-  PhoneCall,
-  Search,
-  CheckCircle,
-  FileCheck2,
-  ChevronRight,
+  Building2,
   Stethoscope,
-  Activity,
-  HeartHandshake,
-  Layers,
-  ArrowRight,
+  Droplet,
+  Users,
+  Clock,
+  Phone,
+  PhoneCall,
+  ChevronRight,
+  Info,
+  MapPin,
+  ExternalLink,
 } from "lucide-react";
-import { useApp } from "@/context/AppContext";
 import { HeroSearch } from "@/components/ui/HeroSearch";
 import { StatusBadge } from "@/components/ui/StatusBadge";
-import { formatDate } from "@/lib/utils";
+import { BloodGroup } from "@/types";
+
+const BLOOD_GROUPS: { group: BloodGroup; status: "AVAILABLE" | "LIMITED" | "UNAVAILABLE" }[] = [
+  { group: "A+", status: "AVAILABLE" },
+  { group: "A-", status: "LIMITED" },
+  { group: "B+", status: "AVAILABLE" },
+  { group: "B-", status: "LIMITED" },
+  { group: "AB+", status: "AVAILABLE" },
+  { group: "AB-", status: "UNAVAILABLE" },
+  { group: "O+", status: "AVAILABLE" },
+  { group: "O-", status: "LIMITED" },
+];
 
 export default function HomePage() {
-  const { t } = useApp();
-
-  // Curated demo featured items
   const featuredHospitals = [
     {
       id: "fac_apollo_lko",
-      name: "Apollo Medics Super Speciality Hospital",
-      area: "Kanpur Road, Lucknow",
-      phone: "+91 522 6788888",
-      emergencyPhone: "+91 522 6788800",
-      icuBeds: "8 Available",
-      ventilators: "6 Available",
-      updatedAt: new Date(Date.now() - 2 * 60 * 60 * 1000).toISOString(),
-      source: "Hospital On-Duty Administration",
+      name: "City Care Hospital",
+      area: "Gomti Nagar, Lucknow",
+      phone: "+91 522 408 1234",
+      image: "/images/hospital-1.svg",
+      status: "AVAILABLE" as const,
+      facilities: "ICU, Ventilator, X-Ray, ECG",
+      updatedAt: "Apr 28, 2025, 10:30 AM",
     },
     {
       id: "fac_kgmu_lko",
-      name: "King George's Medical University (KGMU)",
-      area: "Chowk, Lucknow",
-      phone: "+91 522 2257450",
-      emergencyPhone: "+91 522 2257540",
-      icuBeds: "3 Limited",
-      ventilators: "4 Limited",
-      updatedAt: new Date().toISOString(),
-      source: "Chief Medical Officer Desk",
+      name: "Sunrise Multispeciality Hospital",
+      area: "Hazratganj, Lucknow",
+      phone: "+91 522 412 5678",
+      image: "/images/hospital-2.svg",
+      status: "LIMITED" as const,
+      facilities: "ICU, Ventilator, CT Scan, X-Ray",
+      updatedAt: "Apr 28, 2025, 09:15 AM",
     },
     {
       id: "fac_max_del",
-      name: "Max Super Speciality Hospital",
-      area: "Saket, New Delhi",
-      phone: "+91 11 26515050",
-      emergencyPhone: "+91 11 40554055",
-      icuBeds: "12 Available",
-      ventilators: "9 Available",
-      updatedAt: new Date(Date.now() - 2 * 60 * 60 * 1000).toISOString(),
-      source: "Hospital Operations Room",
-    },
-  ];
-
-  const featuredBlood = [
-    {
-      id: "bb_apollo_lko",
-      name: "Apollo Medics Blood Bank",
-      area: "Kanpur Road, Lucknow",
-      phone: "+91 522 6788889",
-      oNegative: { status: "LIMITED" as const, units: 2 },
-      bPositive: { status: "AVAILABLE" as const, units: 24 },
-      aPositive: { status: "AVAILABLE" as const, units: 18 },
-      updatedAt: new Date(Date.now() - 2 * 60 * 60 * 1000).toISOString(),
-      source: "Apollo Transfusion Dept",
-    },
-    {
-      id: "bb_rotary_del",
-      name: "Rotary Blood Bank & Apheresis",
-      area: "Tughlakabad, New Delhi",
-      phone: "+91 11 29955318",
-      oNegative: { status: "AVAILABLE" as const, units: 8 },
-      bPositive: { status: "AVAILABLE" as const, units: 41 },
-      aPositive: { status: "AVAILABLE" as const, units: 34 },
-      updatedAt: new Date().toISOString(),
-      source: "Rotary Central Registry",
+      name: "LifeCare Hospital",
+      area: "Aliganj, Lucknow",
+      phone: "+91 522 433 2211",
+      image: "/images/hospital-3.svg",
+      status: "AVAILABLE" as const,
+      facilities: "ICU, X-Ray, ECG",
+      updatedAt: "Apr 28, 2025, 09:45 AM",
     },
   ];
 
   return (
-    <div className="flex flex-col gap-16 lg:gap-24 pb-20">
-      {/* 1. HERO SECTION */}
-      <section className="relative pt-12 lg:pt-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto w-full">
-        <div className="text-center max-w-3xl mx-auto space-y-4">
-          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-semibold bg-primary/10 text-primary border border-primary/20">
-            <Activity className="w-3.5 h-3.5" />
-            <span>{t.hero.badge}</span>
+    <div className="flex flex-col gap-12 sm:gap-16 pb-20">
+      {/* 1. HERO SECTION (Layout 1: Landing Page from Reference) */}
+      <section className="pt-8 sm:pt-14 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto w-full">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+          {/* Left Text & Search */}
+          <div className="lg:col-span-7 space-y-6">
+            <div className="space-y-3">
+              <h1 className="text-4xl sm:text-5xl lg:text-[54px] font-display font-extrabold text-[#0F172A] dark:text-white leading-[1.15] tracking-tight">
+                Better Information. <br />
+                <span className="text-[#0284C7]">Faster Connections to Care.</span>
+              </h1>
+              <p className="text-sm sm:text-base text-slate-600 dark:text-slate-300 max-w-xl leading-relaxed">
+                Find hospitals, explore listed medical facilities, and connect with blood banks — all in one place.
+              </p>
+            </div>
+
+            {/* Functional Search Bar */}
+            <div className="pt-2">
+              <HeroSearch />
+            </div>
+
+            {/* Quick Action 4 Cards Row */}
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-3">
+              {/* Card 1: Find Hospitals */}
+              <Link
+                href="/hospitals"
+                className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-3.5 rounded-xl hover:border-[#0284C7] shadow-xs hover:shadow-subtle transition flex flex-col items-center text-center group"
+              >
+                <div className="w-10 h-10 rounded-xl bg-sky-50 dark:bg-sky-950/50 text-[#0284C7] flex items-center justify-center mb-2 group-hover:scale-105 transition">
+                  <Building2 className="w-5 h-5" />
+                </div>
+                <h3 className="text-xs font-bold text-slate-900 dark:text-white">Find Hospitals</h3>
+                <p className="text-[10px] text-slate-500 dark:text-slate-400 mt-0.5 leading-snug">
+                  Search nearby hospitals and facilities
+                </p>
+              </Link>
+
+              {/* Card 2: Explore Facilities */}
+              <Link
+                href="/hospitals?service=icu"
+                className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-3.5 rounded-xl hover:border-[#0284C7] shadow-xs hover:shadow-subtle transition flex flex-col items-center text-center group"
+              >
+                <div className="w-10 h-10 rounded-xl bg-teal-50 dark:bg-teal-950/50 text-teal-600 dark:text-teal-400 flex items-center justify-center mb-2 group-hover:scale-105 transition">
+                  <Stethoscope className="w-5 h-5" />
+                </div>
+                <h3 className="text-xs font-bold text-slate-900 dark:text-white">Explore Facilities</h3>
+                <p className="text-[10px] text-slate-500 dark:text-slate-400 mt-0.5 leading-snug">
+                  Check ICU, ventilator, X-ray and more
+                </p>
+              </Link>
+
+              {/* Card 3: Search Blood Banks */}
+              <Link
+                href="/blood-banks"
+                className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-3.5 rounded-xl hover:border-[#0284C7] shadow-xs hover:shadow-subtle transition flex flex-col items-center text-center group"
+              >
+                <div className="w-10 h-10 rounded-xl bg-rose-50 dark:bg-rose-950/50 text-rose-600 dark:text-rose-400 flex items-center justify-center mb-2 group-hover:scale-105 transition">
+                  <Droplet className="w-5 h-5" />
+                </div>
+                <h3 className="text-xs font-bold text-slate-900 dark:text-white">Search Blood Banks</h3>
+                <p className="text-[10px] text-slate-500 dark:text-slate-400 mt-0.5 leading-snug">
+                  Find blood availability by group
+                </p>
+              </Link>
+
+              {/* Card 4: Staff Portal */}
+              <Link
+                href="/staff/dashboard"
+                className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-3.5 rounded-xl hover:border-[#0284C7] shadow-xs hover:shadow-subtle transition flex flex-col items-center text-center group"
+              >
+                <div className="w-10 h-10 rounded-xl bg-amber-50 dark:bg-amber-950/50 text-amber-600 dark:text-amber-400 flex items-center justify-center mb-2 group-hover:scale-105 transition">
+                  <Users className="w-5 h-5" />
+                </div>
+                <h3 className="text-xs font-bold text-slate-900 dark:text-white">Staff Portal</h3>
+                <p className="text-[10px] text-slate-500 dark:text-slate-400 mt-0.5 leading-snug">
+                  Authorized staff login and updates
+                </p>
+              </Link>
+            </div>
           </div>
-          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-display font-bold tracking-tight text-foreground">
-            {t.hero.title}
-          </h1>
-          <p className="text-base sm:text-lg text-muted-foreground leading-relaxed">
-            {t.hero.subtitle}
-          </p>
-        </div>
 
-        {/* Search Assistant Box */}
-        <div className="mt-8">
-          <HeroSearch />
-        </div>
-
-        {/* Disclaimer Callout */}
-        <p className="text-center text-[11px] text-muted-foreground mt-4 max-w-xl mx-auto">
-          {t.hero.disclaimer}
-        </p>
-      </section>
-
-      {/* 2. QUICK ACCESS CARDS */}
-      <section className="px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto w-full">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-          <Link
-            href="/hospitals"
-            className="group p-6 rounded-2xl bg-card border border-border shadow-card hover:border-primary/50 hover:shadow-float transition"
-          >
-            <div className="w-12 h-12 rounded-xl bg-primary/10 text-primary flex items-center justify-center mb-4 group-hover:scale-110 transition">
-              <Hospital className="w-6 h-6" />
+          {/* Right Hero Healthcare Illustration */}
+          <div className="lg:col-span-5 relative flex items-center justify-center">
+            <div className="relative w-full aspect-4/3 max-w-md rounded-2xl overflow-hidden border border-slate-200/80 dark:border-slate-800 shadow-float bg-sky-50 dark:bg-slate-800">
+              <Image
+                src="/images/hero-illustration.svg"
+                alt="MediConnect Hospital and Medical Professional Illustration"
+                fill
+                priority
+                className="object-cover"
+              />
             </div>
-            <h3 className="text-base font-bold text-foreground flex items-center justify-between">
-              Find Hospitals
-              <ChevronRight className="w-4 h-4 text-muted-foreground group-hover:text-primary transition" />
-            </h3>
-            <p className="text-xs text-muted-foreground mt-2 leading-relaxed">
-              Explore operational bed capacity, trauma units, and hospital emergency contacts.
-            </p>
-          </Link>
-
-          <Link
-            href="/hospitals?service=icu"
-            className="group p-6 rounded-2xl bg-card border border-border shadow-card hover:border-teal-500/50 hover:shadow-float transition"
-          >
-            <div className="w-12 h-12 rounded-xl bg-teal-500/10 text-teal-600 dark:text-teal-400 flex items-center justify-center mb-4 group-hover:scale-110 transition">
-              <Stethoscope className="w-6 h-6" />
-            </div>
-            <h3 className="text-base font-bold text-foreground flex items-center justify-between">
-              Critical Care & ICU
-              <ChevronRight className="w-4 h-4 text-muted-foreground group-hover:text-teal-500 transition" />
-            </h3>
-            <p className="text-xs text-muted-foreground mt-2 leading-relaxed">
-              Real-time reporting of intensive care beds, ventilator reserves, and neonatal units.
-            </p>
-          </Link>
-
-          <Link
-            href="/blood-banks"
-            className="group p-6 rounded-2xl bg-card border border-border shadow-card hover:border-rose-500/50 hover:shadow-float transition"
-          >
-            <div className="w-12 h-12 rounded-xl bg-rose-500/10 text-rose-600 flex items-center justify-center mb-4 group-hover:scale-110 transition">
-              <Droplet className="w-6 h-6" />
-            </div>
-            <h3 className="text-base font-bold text-foreground flex items-center justify-between">
-              Blood Bank Inventory
-              <ChevronRight className="w-4 h-4 text-muted-foreground group-hover:text-rose-500 transition" />
-            </h3>
-            <p className="text-xs text-muted-foreground mt-2 leading-relaxed">
-              Search all 8 ABO/Rh blood groups with certified stock indicators and direct transfusion contacts.
-            </p>
-          </Link>
-
-          <Link
-            href="/staff/dashboard"
-            className="group p-6 rounded-2xl bg-card border border-border shadow-card hover:border-amber-500/50 hover:shadow-float transition"
-          >
-            <div className="w-12 h-12 rounded-xl bg-amber-500/10 text-amber-600 flex items-center justify-center mb-4 group-hover:scale-110 transition">
-              <Layers className="w-6 h-6" />
-            </div>
-            <h3 className="text-base font-bold text-foreground flex items-center justify-between">
-              Staff Portal
-              <ChevronRight className="w-4 h-4 text-muted-foreground group-hover:text-amber-500 transition" />
-            </h3>
-            <p className="text-xs text-muted-foreground mt-2 leading-relaxed">
-              Authorized clinical and administrative personnel portal for publishing resource changes.
-            </p>
-          </Link>
+          </div>
         </div>
       </section>
 
-      {/* 3. HOW IT WORKS */}
-      <section className="px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto w-full">
-        <div className="bg-muted/40 border border-border rounded-3xl p-8 sm:p-12">
-          <div className="max-w-2xl mb-8">
-            <h2 className="text-2xl sm:text-3xl font-bold font-display text-foreground">
-              {t.howItWorks.title}
+      {/* 2. FEATURED HOSPITALS (DEMO DATA) */}
+      <section className="px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto w-full space-y-4">
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <h2 className="text-lg font-bold font-display text-slate-900 dark:text-white">
+              Featured Hospitals
             </h2>
-            <p className="text-sm text-muted-foreground mt-2">
-              {t.howItWorks.subtitle}
-            </p>
+            <span className="text-[10px] font-mono font-bold uppercase bg-amber-100 text-amber-800 dark:bg-amber-950/60 dark:text-amber-300 px-2 py-0.5 rounded">
+              DEMO DATA
+            </span>
           </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="space-y-3 bg-card p-6 rounded-2xl border border-border shadow-subtle">
-              <div className="w-10 h-10 rounded-xl bg-primary/10 text-primary flex items-center justify-center font-bold font-mono">
-                01
-              </div>
-              <h3 className="text-base font-bold text-foreground">
-                {t.howItWorks.step1Title}
-              </h3>
-              <p className="text-xs text-muted-foreground leading-relaxed">
-                {t.howItWorks.step1Desc}
-              </p>
-            </div>
-
-            <div className="space-y-3 bg-card p-6 rounded-2xl border border-border shadow-subtle">
-              <div className="w-10 h-10 rounded-xl bg-primary/10 text-primary flex items-center justify-center font-bold font-mono">
-                02
-              </div>
-              <h3 className="text-base font-bold text-foreground">
-                {t.howItWorks.step2Title}
-              </h3>
-              <p className="text-xs text-muted-foreground leading-relaxed">
-                {t.howItWorks.step2Desc}
-              </p>
-            </div>
-
-            <div className="space-y-3 bg-card p-6 rounded-2xl border border-border shadow-subtle">
-              <div className="w-10 h-10 rounded-xl bg-primary/10 text-primary flex items-center justify-center font-bold font-mono">
-                03
-              </div>
-              <h3 className="text-base font-bold text-foreground">
-                {t.howItWorks.step3Title}
-              </h3>
-              <p className="text-xs text-muted-foreground leading-relaxed">
-                {t.howItWorks.step3Desc}
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* 4. FEATURED HOSPITALS DEMO DATA */}
-      <section className="px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto w-full space-y-6">
-        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-          <div>
-            <div className="flex items-center gap-2">
-              <h2 className="text-2xl font-bold font-display text-foreground">
-                Verified Hospitals & Bed Reserves
-              </h2>
-              <span className="text-[10px] font-mono uppercase bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/20 px-2 py-0.5 rounded-md font-bold">
-                DEMO DATA
-              </span>
-            </div>
-            <p className="text-xs text-muted-foreground mt-1">
-              Sample facility records showing live status, data provenance, and triage phone numbers.
-            </p>
-          </div>
-
           <Link
             href="/hospitals"
-            className="flex items-center gap-1.5 text-xs font-bold text-primary hover:text-primary-hover hover:underline"
+            className="text-xs font-bold text-[#0284C7] hover:underline flex items-center gap-1"
           >
             <span>View All Hospitals</span>
-            <ArrowRight className="w-3.5 h-3.5" />
+            <ChevronRight className="w-3.5 h-3.5" />
           </Link>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
           {featuredHospitals.map((hosp) => (
             <div
               key={hosp.id}
-              className="bg-card border border-border rounded-2xl p-5 shadow-card hover:border-primary/40 transition flex flex-col justify-between"
+              className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl overflow-hidden shadow-xs hover:shadow-card transition flex flex-col justify-between"
             >
               <div>
-                <div className="flex items-start justify-between gap-2">
-                  <h3 className="font-bold text-foreground text-sm leading-snug">
-                    {hosp.name}
-                  </h3>
-                  <span className="shrink-0 text-[10px] font-mono px-2 py-0.5 bg-emerald-50 text-emerald-700 border border-emerald-200 dark:bg-emerald-950/40 dark:text-emerald-400 rounded-md">
-                    Verified
-                  </span>
-                </div>
-                <p className="text-xs text-muted-foreground mt-1">{hosp.area}</p>
-
-                {/* Status chips */}
-                <div className="mt-4 grid grid-cols-2 gap-2 text-xs">
-                  <div className="bg-muted/50 p-2.5 rounded-xl border border-border">
-                    <span className="text-muted-foreground text-[10px] block font-medium">ICU Beds</span>
-                    <span className="font-bold text-foreground">{hosp.icuBeds}</span>
+                {/* Hospital Header and Image */}
+                <div className="p-4 flex items-start gap-3">
+                  <div className="relative w-16 h-16 rounded-xl overflow-hidden shrink-0 border border-slate-100 dark:border-slate-800">
+                    <Image src={hosp.image} alt={hosp.name} fill className="object-cover" />
                   </div>
-                  <div className="bg-muted/50 p-2.5 rounded-xl border border-border">
-                    <span className="text-muted-foreground text-[10px] block font-medium">Ventilators</span>
-                    <span className="font-bold text-foreground">{hosp.ventilators}</span>
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-start justify-between gap-1">
+                      <h3 className="font-bold text-sm text-slate-900 dark:text-white truncate">
+                        {hosp.name}
+                      </h3>
+                      <StatusBadge status={hosp.status} />
+                    </div>
+                    <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5 truncate">
+                      {hosp.area}
+                    </p>
+                    <p className="text-xs font-mono font-medium text-slate-600 dark:text-slate-300 mt-1 flex items-center gap-1">
+                      <Phone className="w-3 h-3 text-[#0284C7]" />
+                      {hosp.phone}
+                    </p>
                   </div>
                 </div>
 
-                <div className="mt-4 pt-3 border-t border-border text-[11px] text-muted-foreground space-y-1">
-                  <p className="flex items-center gap-1 font-mono">
-                    <Clock className="w-3 h-3 text-muted-foreground" />
-                    Updated: {formatDate(hosp.updatedAt)}
+                <div className="px-4 pb-3 space-y-1 text-xs text-slate-600 dark:text-slate-400">
+                  <p className="flex items-center gap-1.5">
+                    <Stethoscope className="w-3.5 h-3.5 text-slate-400" />
+                    <span>{hosp.facilities}</span>
                   </p>
-                  <p className="truncate">Source: {hosp.source}</p>
+                  <p className="text-[11px] font-mono text-slate-400 flex items-center gap-1 pt-1">
+                    <Clock className="w-3 h-3" />
+                    Last updated: {hosp.updatedAt}
+                  </p>
                 </div>
               </div>
 
-              <div className="mt-5 pt-3 border-t border-border flex items-center justify-between gap-2">
-                <a
-                  href={`tel:${hosp.emergencyPhone}`}
-                  className="flex-1 flex items-center justify-center gap-1.5 py-2 px-3 rounded-xl bg-rose-50 text-rose-700 border border-rose-200 dark:bg-rose-950/40 dark:text-rose-300 text-xs font-bold hover:bg-rose-100 transition"
-                >
-                  <PhoneCall className="w-3.5 h-3.5" />
-                  Call Emergency
-                </a>
+              <div className="p-4 pt-0">
                 <Link
                   href={`/hospitals/${hosp.id}`}
-                  className="py-2 px-3 rounded-xl bg-muted text-foreground text-xs font-semibold hover:bg-muted/80 transition"
+                  className="w-full block text-center py-2 px-3 rounded-xl border border-slate-200 dark:border-slate-800 hover:border-[#0284C7] text-xs font-bold text-slate-800 dark:text-slate-200 hover:text-[#0284C7] transition"
                 >
-                  Details
+                  View Details
                 </Link>
               </div>
             </div>
@@ -321,166 +236,61 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* 5. FEATURED BLOOD BANKS DEMO DATA */}
-      <section className="px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto w-full space-y-6">
-        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-          <div>
-            <div className="flex items-center gap-2">
-              <h2 className="text-2xl font-bold font-display text-foreground">
-                Reported Blood Bank Inventory
-              </h2>
-              <span className="text-[10px] font-mono uppercase bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/20 px-2 py-0.5 rounded-md font-bold">
-                DEMO DATA
-              </span>
-            </div>
-            <p className="text-xs text-muted-foreground mt-1">
-              Sample ABO/Rh inventory reserves. Confirm with the laboratory before departure.
-            </p>
+      {/* 3. BLOOD AVAILABILITY SHORTCUTS (DEMO DATA) */}
+      <section className="px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto w-full space-y-4">
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <h2 className="text-lg font-bold font-display text-slate-900 dark:text-white">
+              Blood Availability
+            </h2>
+            <span className="text-[10px] font-mono font-bold uppercase bg-amber-100 text-amber-800 dark:bg-amber-950/60 dark:text-amber-300 px-2 py-0.5 rounded">
+              DEMO DATA
+            </span>
           </div>
-
           <Link
             href="/blood-banks"
-            className="flex items-center gap-1.5 text-xs font-bold text-primary hover:text-primary-hover hover:underline"
+            className="text-xs font-bold text-[#0284C7] hover:underline flex items-center gap-1"
           >
             <span>View All Blood Banks</span>
-            <ArrowRight className="w-3.5 h-3.5" />
+            <ChevronRight className="w-3.5 h-3.5" />
           </Link>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {featuredBlood.map((bb) => (
-            <div
-              key={bb.id}
-              className="bg-card border border-border rounded-2xl p-5 shadow-card hover:border-rose-500/40 transition flex flex-col justify-between"
+        {/* 8-Group Button Row matching Reference 1 */}
+        <div className="grid grid-cols-4 sm:grid-cols-8 gap-3">
+          {BLOOD_GROUPS.map(({ group, status }) => (
+            <Link
+              key={group}
+              href={`/blood-banks?group=${encodeURIComponent(group)}`}
+              className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-3 rounded-2xl text-center shadow-xs hover:border-rose-400 hover:shadow-subtle transition flex flex-col items-center justify-center gap-1.5 group"
             >
-              <div>
-                <div className="flex items-start justify-between gap-2">
-                  <h3 className="font-bold text-foreground text-sm">{bb.name}</h3>
-                  <span className="shrink-0 text-[10px] font-mono px-2 py-0.5 bg-rose-50 text-rose-700 border border-rose-200 dark:bg-rose-950/40 dark:text-rose-400 rounded-md">
-                    Component Bank
-                  </span>
-                </div>
-                <p className="text-xs text-muted-foreground mt-1">{bb.area}</p>
-
-                {/* Blood Group Indicators */}
-                <div className="mt-4 grid grid-cols-3 gap-2">
-                  <div className="bg-muted/40 p-2.5 rounded-xl border border-border text-center">
-                    <span className="text-[10px] font-bold text-muted-foreground block">O- Negative</span>
-                    <span className="text-sm font-mono font-bold text-rose-600 dark:text-rose-400">
-                      {bb.oNegative.units} Units
-                    </span>
-                    <div className="mt-1">
-                      <StatusBadge status={bb.oNegative.status} showIcon={false} />
-                    </div>
-                  </div>
-                  <div className="bg-muted/40 p-2.5 rounded-xl border border-border text-center">
-                    <span className="text-[10px] font-bold text-muted-foreground block">B+ Positive</span>
-                    <span className="text-sm font-mono font-bold text-foreground">
-                      {bb.bPositive.units} Units
-                    </span>
-                    <div className="mt-1">
-                      <StatusBadge status={bb.bPositive.status} showIcon={false} />
-                    </div>
-                  </div>
-                  <div className="bg-muted/40 p-2.5 rounded-xl border border-border text-center">
-                    <span className="text-[10px] font-bold text-muted-foreground block">A+ Positive</span>
-                    <span className="text-sm font-mono font-bold text-foreground">
-                      {bb.aPositive.units} Units
-                    </span>
-                    <div className="mt-1">
-                      <StatusBadge status={bb.aPositive.status} showIcon={false} />
-                    </div>
-                  </div>
-                </div>
-
-                <div className="mt-4 pt-3 border-t border-border text-[11px] text-muted-foreground flex items-center justify-between font-mono">
-                  <span>Source: {bb.source}</span>
-                  <span>Updated: {formatDate(bb.updatedAt)}</span>
-                </div>
+              <div className="w-8 h-8 rounded-full bg-rose-50 dark:bg-rose-950/40 text-rose-600 flex items-center justify-center group-hover:scale-110 transition">
+                <Droplet className="w-4 h-4 fill-rose-600/20" />
               </div>
-
-              <div className="mt-5 pt-3 border-t border-border flex items-center justify-between gap-2">
-                <a
-                  href={`tel:${bb.phone}`}
-                  className="flex-1 flex items-center justify-center gap-1.5 py-2 px-3 rounded-xl bg-card border border-border hover:bg-muted text-xs font-bold text-foreground transition"
-                >
-                  <PhoneCall className="w-3.5 h-3.5 text-primary" />
-                  Call Blood Bank
-                </a>
-                <Link
-                  href={`/blood-banks/${bb.id}`}
-                  className="py-2 px-3 rounded-xl bg-primary text-white text-xs font-semibold hover:bg-primary-hover transition"
-                >
-                  All 8 Groups
-                </Link>
-              </div>
-            </div>
+              <span className="font-mono font-extrabold text-sm text-slate-900 dark:text-white">
+                {group}
+              </span>
+              <span
+                className={`text-[9px] font-bold px-1.5 py-0.2 rounded-full ${
+                  status === "AVAILABLE"
+                    ? "bg-emerald-50 text-emerald-700 dark:bg-emerald-950/40 dark:text-emerald-400"
+                    : status === "LIMITED"
+                    ? "bg-amber-50 text-amber-700 dark:bg-amber-950/40 dark:text-amber-400"
+                    : "bg-rose-50 text-rose-700 dark:bg-rose-950/40 dark:text-rose-400"
+                }`}
+              >
+                {status === "AVAILABLE" ? "Available" : status === "LIMITED" ? "Limited" : "Shortage"}
+              </span>
+            </Link>
           ))}
         </div>
-      </section>
 
-      {/* 6. TRUST & TRANSPARENCY SECTION */}
-      <section className="px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto w-full">
-        <div className="border border-border bg-card rounded-3xl p-8 lg:p-12 shadow-subtle grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
-          <div className="space-y-4">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-emerald-50 text-emerald-700 dark:bg-emerald-950/40 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-800">
-              <ShieldCheck className="w-3.5 h-3.5" />
-              <span>Verifiable Provenance Architecture</span>
-            </div>
-            <h2 className="text-3xl font-bold font-display text-foreground tracking-tight">
-              Combating Medical Rumors with Immutable Audit Trails
-            </h2>
-            <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed">
-              In public health crises, false reports regarding oxygen beds and blood availability cause panic and fatal delays. MediConnect enforces verified staff authentication, timestamped modifications, and data source disclosure on every single record.
-            </p>
-            <ul className="space-y-2.5 text-xs text-foreground font-medium pt-2">
-              <li className="flex items-center gap-2">
-                <CheckCircle className="w-4 h-4 text-emerald-600 shrink-0" />
-                Staff role-based authorization prevents unauthorized updates.
-              </li>
-              <li className="flex items-center gap-2">
-                <CheckCircle className="w-4 h-4 text-emerald-600 shrink-0" />
-                Clear timestamps indicate information freshness down to the exact minute.
-              </li>
-              <li className="flex items-center gap-2">
-                <CheckCircle className="w-4 h-4 text-emerald-600 shrink-0" />
-                Demonstration records are strictly tagged DEMO DATA.
-              </li>
-            </ul>
-          </div>
-
-          <div className="bg-muted/40 border border-border rounded-2xl p-6 space-y-4 font-mono text-xs">
-            <div className="flex items-center justify-between pb-3 border-b border-border">
-              <span className="font-bold text-foreground">Recent Audit Ledger</span>
-              <span className="text-[10px] text-emerald-600">● Live Feed</span>
-            </div>
-
-            <div className="space-y-3">
-              <div className="p-3 bg-card rounded-xl border border-border">
-                <p className="text-primary font-bold">Apollo Medics: ICU Beds</p>
-                <p className="text-muted-foreground text-[11px] mt-0.5">
-                  Updated status: LIMITED → AVAILABLE (8 units)
-                </p>
-                <p className="text-[10px] text-muted-foreground mt-1">
-                  Actor: Nurse Priya Sharma • 2h ago
-                </p>
-              </div>
-
-              <div className="p-3 bg-card rounded-xl border border-border">
-                <p className="text-primary font-bold">Rotary Blood Bank: O- Stock</p>
-                <p className="text-muted-foreground text-[11px] mt-0.5">
-                  Updated stock: 8 Units (Reserve Calibrated)
-                </p>
-                <p className="text-[10px] text-muted-foreground mt-1">
-                  Actor: Dr. Arvind Mehta • Just now
-                </p>
-              </div>
-            </div>
-
-            <div className="pt-2 text-[11px] text-center text-muted-foreground">
-              Every change records actor identity, previous state, and timestamp.
-            </div>
-          </div>
+        {/* Reference Disclaimer Pill */}
+        <div className="p-3.5 rounded-xl bg-blue-50/70 dark:bg-slate-800/60 border border-blue-200/60 dark:border-slate-700 text-xs text-slate-700 dark:text-slate-300 flex items-center gap-2">
+          <Info className="w-4 h-4 text-[#0284C7] shrink-0" />
+          <span>
+            Please call the hospital or blood bank to confirm availability before travelling. This platform provides information for reference only (DEMO DATA).
+          </span>
         </div>
       </section>
     </div>

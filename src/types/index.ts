@@ -27,6 +27,8 @@ export interface Facility {
   emergencyPhone: string;
   email: string;
   website?: string;
+  image?: string;
+  distanceKm?: number;
   latitude?: number;
   longitude?: number;
   totalBeds: number;
