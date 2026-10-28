@@ -52,7 +52,7 @@ MediConnect connects patients, families, caregivers, and medical responders with
 - **Framework:** Next.js 14 (App Router) with TypeScript
 - **Styling & Design Tokens:** Tailwind CSS with custom healthcare palette (Midnight Navy, Medical Blue, Muted Teal, Crimson Urgency)
 - **Icons:** Lucide React
-- **Persistence & ORM:** Database engine supporting PostgreSQL (via `pg`) and ACID-compliant portable persistence with automated seed data
+- **Persistence:** JSON-backed application state; Render mounts a persistent disk at `/var/data` so requests, registrations, and staff updates survive service restarts
 - **Security & Validation:** `jose` (JWT), `bcryptjs` (password hashing), `zod` (runtime schema validation)
 - **Testing:** Node.js native test runner with `tsx` (`tests/suite.test.ts`)
 - **Deployment:** Render Web Service Blueprint (`render.yaml`)
@@ -124,18 +124,21 @@ All 7 tests passed (0 failures).
 
 ## 🌐 Render Deployment Guide
 
-MediConnect is fully configured for zero-config deployment on Render:
+MediConnect is configured for deployment on Render with persistent application storage:
 
 1. Push your repository to GitHub or GitLab.
 2. In the [Render Dashboard](https://dashboard.render.com), click **New +** and select **Blueprint**.
 3. Connect your repository containing `render.yaml`.
-4. Render will automatically configure:
+4. Review the Blueprint resources and create them. Render will configure:
    - **Web Service:** `mediconnect-app`
    - **Build Command:** `npm install && npm run build`
    - **Start Command:** `npm run start`
    - **Health Check Path:** `/api/health`
-   - **Environment Variables:** `NODE_ENV=production`, `PORT=10000`, `JWT_SECRET`
+   - **Environment Variables:** `NODE_ENV=production`, `PORT=10000`, generated `JWT_SECRET`, and `MEDICONNECT_DATA_FILE=/var/data/database.json`
+   - **Persistent Disk:** a 1 GB disk mounted at `/var/data` for the JSON database
 5. Once deployed, verify `https://<your-service>.onrender.com/api/health` returns `HTTP 200 OK`.
+
+The persistent disk keeps the JSON store across restarts, but it is intended for a single web-service instance and does not provide multi-instance database coordination.
 
 ---
 

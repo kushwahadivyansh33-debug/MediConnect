@@ -24,7 +24,9 @@ export interface DatabaseState {
   passwordResetTokens: PasswordResetToken[];
 }
 
-const DATA_FILE_PATH = path.join(process.cwd(), "data", "database.json");
+const DATA_FILE_PATH = process.env.MEDICONNECT_DATA_FILE
+  ? path.resolve(process.env.MEDICONNECT_DATA_FILE)
+  : path.join(process.cwd(), "data", "database.json");
 
 // Initial Seed Data with strict DEMO DATA tagging
 function getInitialSeed(): DatabaseState {

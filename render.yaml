@@ -15,15 +15,9 @@ services:
         value: 10000
       - key: JWT_SECRET
         generateValue: true
-      - key: DATABASE_URL
-        fromDatabase:
-          name: mediconnect-db
-          property: connectionString
-
-  # Render Managed PostgreSQL Service (Optional persistent backing)
-  - type: postgres
-    name: mediconnect-db
-    plan: starter
-    region: oregon
-    databaseName: mediconnect
-    user: mediconnect_user
+      - key: MEDICONNECT_DATA_FILE
+        value: /var/data/database.json
+    disk:
+      name: mediconnect-data
+      mountPath: /var/data
+      sizeGB: 1
