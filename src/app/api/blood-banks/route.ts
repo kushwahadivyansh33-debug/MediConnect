@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { db } from "@/lib/db";
+import { getApproximateCoordinates } from "@/lib/location";
 
 export const dynamic = "force-dynamic";
 
@@ -34,7 +35,16 @@ export async function GET(request: Request) {
       );
     }
 
-    return NextResponse.json(bloodBanks);
+    return NextResponse.json(
+      bloodBanks.map((bank) => {
+        const approximate = getApproximateCoordinates(bank.pincode);
+        return {
+          ...bank,
+          latitude: bank.latitude ?? approximate?.latitude,
+          longitude: bank.longitude ?? approximate?.longitude,
+        };
+      }),
+    );
   } catch (error) {
     console.error("Error in GET /api/blood-banks:", error);
     return NextResponse.json({ error: "Failed to fetch blood banks" }, { status: 500 });

@@ -28,7 +28,7 @@ export function HeroSearch() {
           onClick={() => setMode("hospitals")}
           className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg text-xs font-semibold transition-all ${
             mode === "hospitals"
-              ? "bg-white dark:bg-slate-700 text-[#087FBD] shadow-xs"
+              ? "bg-white dark:bg-slate-700 text-[#E88A05] shadow-xs"
               : "text-slate-500 hover:text-slate-800 dark:hover:text-slate-200"
           }`}
         >
@@ -79,7 +79,7 @@ export function HeroSearch() {
         <div className="flex items-center gap-2 px-3 py-2 border-t sm:border-t-0 sm:border-l-0">
           <button
             type="submit"
-            className="w-full sm:w-auto px-6 py-2.5 bg-[#087FBD] hover:bg-[#0369A1] text-white text-sm font-semibold rounded-xl transition-colors shadow-xs flex items-center justify-center gap-2"
+            className="w-full sm:w-auto px-6 py-2.5 bg-[#E88A05] hover:bg-[#C45F08] text-white text-sm font-semibold rounded-xl transition-colors shadow-xs flex items-center justify-center gap-2"
           >
             <Search className="w-3.5 h-3.5" />
             Search

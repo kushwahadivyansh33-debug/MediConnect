@@ -17,6 +17,7 @@ import {
 import { BloodBank } from "@/types";
 import { StatusBadge } from "@/components/ui/StatusBadge";
 import { formatDate } from "@/lib/utils";
+import { BloodRequestButton } from "@/components/blood/BloodRequestButton";
 
 export default function BloodBankDetailPage() {
   const params = useParams();
@@ -117,13 +118,22 @@ export default function BloodBankDetailPage() {
             </p>
           </div>
 
-          <a
-            href={`tel:${bloodBank.phone}`}
-            className="flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-rose-600 hover:bg-rose-700 text-white font-bold text-sm shadow-subtle transition shrink-0"
-          >
-            <PhoneCall className="w-4 h-4" />
-            <span>Call Lab ({bloodBank.phone})</span>
-          </a>
+          <div className="flex flex-col gap-2 sm:flex-row">
+            <BloodRequestButton
+              bloodBank={bloodBank}
+              initialGroup={
+                bloodBank.inventory.find((item) => item.status === "AVAILABLE")?.bloodGroup || "O+"
+              }
+              className="inline-flex shrink-0 items-center justify-center gap-2 rounded-xl bg-[#E88A05] px-5 py-3 text-sm font-bold text-white shadow-subtle transition hover:bg-[#C45F08]"
+            />
+            <a
+              href={`tel:${bloodBank.phone}`}
+              className="flex shrink-0 items-center justify-center gap-2 rounded-xl border border-border px-5 py-3 text-sm font-bold text-foreground transition hover:bg-muted"
+            >
+              <PhoneCall className="w-4 h-4" />
+              <span>Call Lab ({bloodBank.phone})</span>
+            </a>
+          </div>
         </div>
 
         <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 pt-6 text-xs">

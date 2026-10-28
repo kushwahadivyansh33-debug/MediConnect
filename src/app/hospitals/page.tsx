@@ -17,10 +17,13 @@ import {
   Layers,
   X,
   SlidersHorizontal,
+  MapPinned,
 } from "lucide-react";
 import { Facility } from "@/types";
 import { StatusBadge } from "@/components/ui/StatusBadge";
 import { SkeletonCard } from "@/components/ui/SkeletonCard";
+import { useBrowserLocation } from "@/hooks/useBrowserLocation";
+import { distanceInKm } from "@/lib/location";
 
 const SERVICES = ["ICU", "Ventilator", "X-Ray", "ECG", "CT Scan", "MRI", "Lab", "Pharmacy"];
 const STATUS_OPTIONS = ["Available", "Limited", "Unavailable"];
@@ -43,6 +46,19 @@ function HospitalsFinderContent() {
     Object.fromEntries(STATUS_OPTIONS.map((s) => [s, true]))
   );
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const { location, locating, error: locationError, requestLocation } = useBrowserLocation();
+
+  const nearbyFacilities = location
+    ? [...facilities].sort((left, right) => {
+        const leftDistance = left.latitude === undefined || left.longitude === undefined
+          ? Number.POSITIVE_INFINITY
+          : distanceInKm(location, { latitude: left.latitude, longitude: left.longitude });
+        const rightDistance = right.latitude === undefined || right.longitude === undefined
+          ? Number.POSITIVE_INFINITY
+          : distanceInKm(location, { latitude: right.latitude, longitude: right.longitude });
+        return leftDistance - rightDistance;
+      })
+    : facilities;
 
   const fetchHospitals = async () => {
     try {
@@ -70,6 +86,9 @@ function HospitalsFinderContent() {
   };
 
   useEffect(() => { fetchHospitals(); }, [areaFilter, sortBy]);
+  useEffect(() => {
+    if (location) setAreaFilter("All Regions");
+  }, [location]);
 
   const handleSearchSubmit = (e: React.FormEvent) => { e.preventDefault(); fetchHospitals(); };
 
@@ -89,12 +108,34 @@ function HospitalsFinderContent() {
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
 
       {/* Page header */}
-      <div className="mb-6 space-y-1">
-        <h1 className="font-display text-2xl font-bold text-[#101828] dark:text-white">Find Hospitals</h1>
-        <p className="text-sm text-[#475467] dark:text-slate-400">
-          Search reported resource availability at hospitals near you.
-        </p>
+      <div className="mb-6 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
+        <div className="space-y-1">
+          <h1 className="font-display text-2xl font-bold text-[#101828] dark:text-white">Find Hospitals</h1>
+          <p className="text-sm text-[#475467] dark:text-slate-400">
+            Search reported resource availability at hospitals near you.
+          </p>
+        </div>
+        <div className="flex flex-wrap gap-2">
+          <button
+            type="button"
+            onClick={requestLocation}
+            disabled={locating}
+            className="inline-flex items-center gap-2 rounded-lg border border-[#E88A05]/30 bg-amber-50 px-3 py-2 text-xs font-semibold text-[#9A4A00] transition hover:bg-amber-100 disabled:opacity-60"
+          >
+            <MapPinned className="h-4 w-4" />
+            {locating ? "Finding nearby hospitals…" : location ? "Refresh nearby hospitals" : "Use my location"}
+          </button>
+          <Link
+            href="/hospitals/register"
+            className="inline-flex items-center gap-2 rounded-lg bg-[#E88A05] px-3 py-2 text-xs font-semibold text-white transition hover:bg-[#C45F08]"
+          >
+            <Building2 className="h-4 w-4" />
+            Register a hospital
+          </Link>
+        </div>
       </div>
+      {location && <p className="mb-4 text-xs text-slate-500">Sorted by approximate distance; your location stays in this browser.</p>}
+      {locationError && <p role="status" className="mb-4 text-xs text-amber-700">{locationError}</p>}
 
       {/* Search bar */}
       <form
@@ -131,7 +172,7 @@ function HospitalsFinderContent() {
         <div className="flex items-center gap-2 shrink-0 w-full sm:w-auto px-1">
           <button
             type="submit"
-            className="flex-1 sm:flex-initial px-5 py-2.5 rounded-xl text-sm font-semibold bg-[#087FBD] hover:bg-[#0369A1] text-white transition-colors shadow-xs flex items-center justify-center gap-2"
+            className="flex-1 sm:flex-initial px-5 py-2.5 rounded-xl text-sm font-semibold bg-[#E88A05] hover:bg-[#C45F08] text-white transition-colors shadow-xs flex items-center justify-center gap-2"
           >
             <Search className="w-3.5 h-3.5" /> Search
           </button>
@@ -143,7 +184,7 @@ function HospitalsFinderContent() {
           >
             <SlidersHorizontal className="w-4 h-4" />
             {activeFilterCount > 0 && (
-              <span className="absolute -top-1.5 -right-1.5 w-4 h-4 rounded-full bg-[#087FBD] text-white text-[9px] font-bold flex items-center justify-center">
+              <span className="absolute -top-1.5 -right-1.5 w-4 h-4 rounded-full bg-[#E88A05] text-white text-[9px] font-bold flex items-center justify-center">
                 {activeFilterCount}
               </span>
             )}
@@ -161,7 +202,7 @@ function HospitalsFinderContent() {
             <span className="font-semibold text-sm text-[#101828] dark:text-white flex items-center gap-1.5">
               <Filter className="w-4 h-4 text-slate-400" /> Filters
             </span>
-            <button onClick={handleClearFilters} className="text-xs font-semibold text-[#087FBD] hover:underline">
+            <button onClick={handleClearFilters} className="text-xs font-semibold text-[#E88A05] hover:underline">
               Clear all
             </button>
           </div>
@@ -176,7 +217,7 @@ function HospitalsFinderContent() {
                     type="checkbox"
                     checked={selectedServices[srv]}
                     onChange={() => setSelectedServices((p) => ({ ...p, [srv]: !p[srv] }))}
-                    className="w-4 h-4 rounded border-slate-300 text-[#087FBD] accent-[#087FBD]"
+                    className="w-4 h-4 rounded border-slate-300 text-[#E88A05] accent-[#E88A05]"
                   />
                   {srv}
                 </label>
@@ -194,7 +235,7 @@ function HospitalsFinderContent() {
                     type="checkbox"
                     checked={statusFilters[st]}
                     onChange={() => setStatusFilters((p) => ({ ...p, [st]: !p[st] }))}
-                    className="w-4 h-4 rounded border-slate-300 accent-[#087FBD]"
+                    className="w-4 h-4 rounded border-slate-300 accent-[#E88A05]"
                   />
                   {st}
                 </label>
@@ -213,7 +254,7 @@ function HospitalsFinderContent() {
                     name="sortBy"
                     checked={sortBy === s}
                     onChange={() => setSortBy(s)}
-                    className="accent-[#087FBD]"
+                    className="accent-[#E88A05]"
                   />
                   {s === "name" ? "Name (A–Z)" : "Last Updated"}
                 </label>
@@ -251,7 +292,7 @@ function HospitalsFinderContent() {
               <p className="text-sm text-[#475467] dark:text-slate-400">{error}</p>
               <button
                 onClick={fetchHospitals}
-                className="px-4 py-2 rounded-xl bg-[#087FBD] text-white text-sm font-semibold hover:bg-[#0369A1] transition-colors"
+                className="px-4 py-2 rounded-xl bg-[#E88A05] text-white text-sm font-semibold hover:bg-[#C45F08] transition-colors"
               >
                 Try Again
               </button>
@@ -266,7 +307,7 @@ function HospitalsFinderContent() {
               <p className="text-sm text-[#475467] dark:text-slate-400">Try adjusting your search or filters.</p>
               <button
                 onClick={handleClearFilters}
-                className="text-sm font-semibold text-[#087FBD] hover:underline"
+                className="text-sm font-semibold text-[#E88A05] hover:underline"
               >
                 Clear filters
               </button>
@@ -276,11 +317,13 @@ function HospitalsFinderContent() {
           {/* Results */}
           {!loading && !error && facilities.length > 0 && (
             <div className="space-y-4">
-              {facilities.map((hosp, idx) => {
+              {nearbyFacilities.map((hosp, idx) => {
                 const icu    = hosp.resources.find((r) => r.name.toLowerCase().includes("icu"));
                 const status = icu?.status || "AVAILABLE";
                 const img    = hosp.image || `/images/hospital-${(idx % 3) + 1}.svg`;
-                const dist   = hosp.distanceKm || [1.2, 3.8, 5.4][idx % 3];
+                const dist   = location && hosp.latitude !== undefined && hosp.longitude !== undefined
+                  ? distanceInKm(location, { latitude: hosp.latitude, longitude: hosp.longitude }).toFixed(1)
+                  : hosp.distanceKm || [1.2, 3.8, 5.4][idx % 3];
 
                 return (
                   <div
@@ -288,7 +331,7 @@ function HospitalsFinderContent() {
                     className="bg-white dark:bg-slate-900 border border-[#E4EAF1] dark:border-slate-800 rounded-2xl p-5 shadow-xs hover:shadow-card transition-all duration-200 flex flex-col sm:flex-row gap-4"
                   >
                     {/* Thumbnail */}
-                    <div className="relative w-full sm:w-28 h-32 sm:h-28 rounded-xl overflow-hidden shrink-0 border border-[#E4EAF1] dark:border-slate-800 bg-sky-50 dark:bg-slate-800">
+                    <div className="relative w-full sm:w-28 h-32 sm:h-28 rounded-xl overflow-hidden shrink-0 border border-[#E4EAF1] dark:border-slate-800 bg-amber-50 dark:bg-slate-800">
                       <Image src={img} alt={hosp.name} fill className="object-cover" />
                     </div>
 
@@ -301,7 +344,7 @@ function HospitalsFinderContent() {
                         <div className="flex items-center gap-2 shrink-0">
                           <StatusBadge status={status} />
                           <span className="text-xs font-mono text-slate-400 flex items-center gap-1">
-                            <MapPin className="w-3 h-3" /> {dist} km
+                            <MapPin className="w-3 h-3" /> {dist} km{location ? " approx." : ""}
                           </span>
                         </div>
                       </div>
@@ -311,7 +354,7 @@ function HospitalsFinderContent() {
                       </p>
 
                       <p className="text-xs font-mono font-medium text-[#475467] dark:text-slate-300 flex items-center gap-1.5">
-                        <Phone className="w-3.5 h-3.5 text-[#087FBD]" /> {hosp.phone}
+                        <Phone className="w-3.5 h-3.5 text-[#E88A05]" /> {hosp.phone}
                       </p>
 
                       <div className="flex flex-wrap gap-1 pt-1">
@@ -335,13 +378,13 @@ function HospitalsFinderContent() {
                     <div className="flex sm:flex-col justify-end items-center sm:items-end gap-2 shrink-0 pt-2 sm:pt-0 border-t sm:border-t-0 sm:border-l border-[#E4EAF1] dark:border-slate-800 sm:pl-5">
                       <Link
                         href={`/hospitals/${hosp.id}`}
-                        className="flex-1 sm:flex-initial text-center px-4 py-2 rounded-xl border border-[#E4EAF1] dark:border-slate-700 hover:border-[#087FBD] text-sm font-semibold text-[#475467] dark:text-slate-200 hover:text-[#087FBD] transition-colors"
+                        className="flex-1 sm:flex-initial text-center px-4 py-2 rounded-xl border border-[#E4EAF1] dark:border-slate-700 hover:border-[#E88A05] text-sm font-semibold text-[#475467] dark:text-slate-200 hover:text-[#E88A05] transition-colors"
                       >
                         View Details
                       </Link>
                       <a
                         href={`tel:${hosp.emergencyPhone}`}
-                        className="flex items-center gap-1.5 px-4 py-2 rounded-xl bg-[#087FBD] hover:bg-[#0369A1] text-white text-sm font-semibold transition-colors shadow-xs"
+                        className="flex items-center gap-1.5 px-4 py-2 rounded-xl bg-[#E88A05] hover:bg-[#C45F08] text-white text-sm font-semibold transition-colors shadow-xs"
                       >
                         <PhoneCall className="w-3.5 h-3.5" /> Call
                       </a>

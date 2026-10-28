@@ -68,6 +68,8 @@ export interface BloodBank {
   city: string;
   state: string;
   pincode: string;
+  latitude?: number;
+  longitude?: number;
   phone: string;
   operatingHours: string;
   dataSource: string;
@@ -75,6 +77,41 @@ export interface BloodBank {
   isDemoData: boolean;
   updatedAt: string;
   inventory: BloodInventoryItem[];
+}
+
+export interface BloodRequest {
+  id: string;
+  reference: string;
+  bloodBankId: string;
+  bloodBankName: string;
+  bloodGroup: BloodGroup;
+  units: number;
+  neededBy: string;
+  appointmentSlot: string;
+  requesterName: string;
+  requesterPhone: string;
+  requesterEmail?: string;
+  notes?: string;
+  status: "PENDING";
+  createdAt: string;
+}
+
+export interface HospitalRegistration {
+  id: string;
+  name: string;
+  type: Facility["type"];
+  address: string;
+  area: string;
+  city: string;
+  state: string;
+  pincode: string;
+  phone: string;
+  emergencyPhone: string;
+  email: string;
+  website?: string;
+  contactName: string;
+  status: "PENDING";
+  createdAt: string;
 }
 
 export interface AuditLog {

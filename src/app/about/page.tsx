@@ -47,7 +47,7 @@ export default function AboutPage() {
         </div>
 
         <div className="bg-card border border-border rounded-2xl p-6 shadow-subtle space-y-3">
-          <div className="w-10 h-10 rounded-xl bg-teal-500/10 text-teal-600 flex items-center justify-center">
+          <div className="w-10 h-10 rounded-xl bg-orange-500/10 text-orange-600 flex items-center justify-center">
             <Eye className="w-5 h-5" />
           </div>
           <h3 className="font-bold text-foreground text-sm">Transparent Freshness</h3>

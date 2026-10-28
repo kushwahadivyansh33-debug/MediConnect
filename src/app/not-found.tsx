@@ -10,22 +10,22 @@ export default function NotFound() {
       {/* Top Header Path matching Reference 10 */}
       <div className="flex items-center justify-between pb-6">
         <Link href="/" className="flex items-center gap-2 group">
-          <div className="w-7 h-7 rounded-lg bg-[#087FBD] flex items-center justify-center text-white">
+          <div className="w-7 h-7 rounded-lg bg-[#E88A05] flex items-center justify-center text-white">
             <svg viewBox="0 0 24 24" fill="none" className="w-4 h-4" stroke="currentColor" strokeWidth="2.5">
-              <path d="M12 2L4 5v6.09c0 5.05 3.41 9.76 8 10.91 4.59-1.15 8-5.86 8-10.91V5l-8-3z" fill="#087FBD" stroke="#087FBD" />
+              <path d="M12 2L4 5v6.09c0 5.05 3.41 9.76 8 10.91 4.59-1.15 8-5.86 8-10.91V5l-8-3z" fill="#E88A05" stroke="#E88A05" />
               <path d="M12 8v8M8 12h8" stroke="#FFFFFF" strokeWidth="2.5" strokeLinecap="round" />
             </svg>
           </div>
           <span className="font-display font-extrabold text-lg text-slate-900 dark:text-white tracking-tight">
-            Medi<span className="text-[#087FBD]">Connect</span>
+            Medi<span className="text-[#E88A05]">Connect</span>
           </span>
         </Link>
 
         <nav className="hidden sm:flex items-center gap-6 text-xs font-semibold text-slate-600 dark:text-slate-300">
-          <Link href="/" className="hover:text-[#087FBD]">Home</Link>
-          <Link href="/hospitals" className="hover:text-[#087FBD]">Hospitals</Link>
-          <Link href="/blood-banks" className="hover:text-[#087FBD]">Blood Banks</Link>
-          <Link href="/about" className="hover:text-[#087FBD]">About</Link>
+          <Link href="/" className="hover:text-[#E88A05]">Home</Link>
+          <Link href="/hospitals" className="hover:text-[#E88A05]">Hospitals</Link>
+          <Link href="/blood-banks" className="hover:text-[#E88A05]">Blood Banks</Link>
+          <Link href="/about" className="hover:text-[#E88A05]">About</Link>
         </nav>
       </div>
 
@@ -33,7 +33,7 @@ export default function NotFound() {
       <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-center py-12">
         {/* Left Hospital Illustration */}
         <div className="md:col-span-6 flex items-center justify-center">
-          <div className="relative w-full max-w-md aspect-4/3 rounded-3xl overflow-hidden border border-slate-200 dark:border-slate-800 bg-sky-50 dark:bg-slate-900 shadow-card p-4">
+          <div className="relative w-full max-w-md aspect-4/3 rounded-3xl overflow-hidden border border-slate-200 dark:border-slate-800 bg-amber-50 dark:bg-slate-900 shadow-card p-4">
             <svg viewBox="0 0 400 300" className="w-full h-full" xmlns="http://www.w3.org/2000/svg">
               <defs>
                 <linearGradient id="sky404" x1="0" y1="0" x2="0" y2="1">
@@ -44,7 +44,7 @@ export default function NotFound() {
               <rect width="400" height="300" rx="16" fill="url(#sky404)" />
               <polygon points="60,90 200,60 200,260 60,270" fill="#E2E8F0" />
               <polygon points="200,60 320,80 320,260 200,260" fill="#CBD5E1" />
-              <g fill="#087FBD">
+              <g fill="#E88A05">
                 <rect x="80" y="100" width="35" height="24" rx="2" />
                 <rect x="135" y="90" width="35" height="24" rx="2" />
                 <rect x="80" y="140" width="35" height="24" rx="2" />
@@ -56,7 +56,7 @@ export default function NotFound() {
                 <rect x="220" y="135" width="35" height="24" rx="2" />
                 <rect x="270" y="140" width="35" height="24" rx="2" />
               </g>
-              <circle cx="260" cy="50" r="14" fill="#087FBD" />
+              <circle cx="260" cy="50" r="14" fill="#E88A05" />
               <rect x="257" y="42" width="6" height="16" fill="#FFFFFF" rx="1" />
               <rect x="252" y="47" width="16" height="6" fill="#FFFFFF" rx="1" />
               <circle cx="45" cy="270" r="25" fill="#10B981" />
@@ -67,7 +67,7 @@ export default function NotFound() {
 
         {/* Right 404 Headline & Actions matching Reference 10 */}
         <div className="md:col-span-6 space-y-4">
-          <span className="text-6xl sm:text-7xl font-mono font-extrabold text-[#087FBD] block tracking-tight">
+          <span className="text-6xl sm:text-7xl font-mono font-extrabold text-[#E88A05] block tracking-tight">
             404
           </span>
           <h2 className="text-2xl sm:text-3xl font-bold font-display text-slate-900 dark:text-white">
@@ -80,7 +80,7 @@ export default function NotFound() {
           <div className="flex items-center gap-3 pt-2">
             <Link
               href="/"
-              className="px-6 py-2.5 rounded-xl text-xs font-bold bg-[#087FBD] hover:bg-[#0369A1] text-white shadow-xs transition"
+              className="px-6 py-2.5 rounded-xl text-xs font-bold bg-[#E88A05] hover:bg-[#C45F08] text-white shadow-xs transition"
             >
               Go Home
             </Link>

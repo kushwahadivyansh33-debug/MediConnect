@@ -61,14 +61,14 @@ export default function LoginPage() {
         {/* Brand */}
         <div className="text-center space-y-2">
           <Link href="/" className="inline-flex items-center gap-2.5 group">
-            <div className="w-9 h-9 rounded-xl bg-[#087FBD] flex items-center justify-center shadow-xs group-hover:scale-105 transition-transform">
+            <div className="w-9 h-9 rounded-xl bg-[#E88A05] flex items-center justify-center shadow-xs group-hover:scale-105 transition-transform">
               <svg viewBox="0 0 24 24" fill="none" className="w-5 h-5" stroke="currentColor" strokeWidth="2.5">
-                <path d="M12 2L4 5v6.09c0 5.05 3.41 9.76 8 10.91 4.59-1.15 8-5.86 8-10.91V5l-8-3z" fill="#087FBD" stroke="#087FBD" />
+                <path d="M12 2L4 5v6.09c0 5.05 3.41 9.76 8 10.91 4.59-1.15 8-5.86 8-10.91V5l-8-3z" fill="#E88A05" stroke="#E88A05" />
                 <path d="M12 8v8M8 12h8" stroke="#FFFFFF" strokeWidth="2.5" strokeLinecap="round" />
               </svg>
             </div>
             <span className="font-display font-extrabold text-2xl text-[#101828] dark:text-white tracking-tight">
-              Medi<span className="text-[#087FBD]">Connect</span>
+              Medi<span className="text-[#E88A05]">Connect</span>
             </span>
           </Link>
           <p className="text-sm text-[#475467] dark:text-slate-400">
@@ -108,7 +108,7 @@ export default function LoginPage() {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="you@hospital.in"
-                  className="w-full pl-10 pr-4 py-2.5 text-sm bg-white dark:bg-slate-800 border border-[#E4EAF1] dark:border-slate-700 rounded-xl text-[#101828] dark:text-white placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-[#087FBD]/20 focus:border-[#087FBD] transition-colors"
+                  className="w-full pl-10 pr-4 py-2.5 text-sm bg-white dark:bg-slate-800 border border-[#E4EAF1] dark:border-slate-700 rounded-xl text-[#101828] dark:text-white placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-[#E88A05]/20 focus:border-[#E88A05] transition-colors"
                 />
               </div>
             </div>
@@ -119,7 +119,7 @@ export default function LoginPage() {
                 <label htmlFor="password" className="text-sm font-semibold text-[#101828] dark:text-slate-200">
                   Password
                 </label>
-                <Link href="/forgot-password" className="text-xs font-semibold text-[#087FBD] hover:text-[#0369A1] transition-colors">
+                <Link href="/forgot-password" className="text-xs font-semibold text-[#E88A05] hover:text-[#C45F08] transition-colors">
                   Forgot password?
                 </Link>
               </div>
@@ -132,7 +132,7 @@ export default function LoginPage() {
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   placeholder="••••••••"
-                  className="w-full pl-10 pr-12 py-2.5 text-sm bg-white dark:bg-slate-800 border border-[#E4EAF1] dark:border-slate-700 rounded-xl text-[#101828] dark:text-white placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-[#087FBD]/20 focus:border-[#087FBD] transition-colors"
+                  className="w-full pl-10 pr-12 py-2.5 text-sm bg-white dark:bg-slate-800 border border-[#E4EAF1] dark:border-slate-700 rounded-xl text-[#101828] dark:text-white placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-[#E88A05]/20 focus:border-[#E88A05] transition-colors"
                 />
                 <button
                   type="button"
@@ -148,7 +148,7 @@ export default function LoginPage() {
             <button
               type="submit"
               disabled={loading}
-              className="w-full py-2.5 px-4 rounded-xl text-sm font-semibold bg-[#087FBD] hover:bg-[#0369A1] text-white shadow-xs transition-colors flex items-center justify-center gap-2 disabled:opacity-60 disabled:cursor-not-allowed"
+              className="w-full py-2.5 px-4 rounded-xl text-sm font-semibold bg-[#E88A05] hover:bg-[#C45F08] text-white shadow-xs transition-colors flex items-center justify-center gap-2 disabled:opacity-60 disabled:cursor-not-allowed"
             >
               {loading ? (
                 <>
@@ -170,14 +170,14 @@ export default function LoginPage() {
               <button
                 type="button"
                 onClick={() => quickFill("admin")}
-                className="flex-1 py-1.5 px-3 rounded-lg bg-[#F7F9FC] dark:bg-slate-800 border border-[#E4EAF1] dark:border-slate-700 text-xs font-semibold text-[#475467] dark:text-slate-300 hover:border-[#087FBD]/50 hover:text-[#087FBD] transition-colors"
+                className="flex-1 py-1.5 px-3 rounded-lg bg-[#F7F9FC] dark:bg-slate-800 border border-[#E4EAF1] dark:border-slate-700 text-xs font-semibold text-[#475467] dark:text-slate-300 hover:border-[#E88A05]/50 hover:text-[#E88A05] transition-colors"
               >
                 Admin Fill
               </button>
               <button
                 type="button"
                 onClick={() => quickFill("staff")}
-                className="flex-1 py-1.5 px-3 rounded-lg bg-[#F7F9FC] dark:bg-slate-800 border border-[#E4EAF1] dark:border-slate-700 text-xs font-semibold text-[#475467] dark:text-slate-300 hover:border-[#087FBD]/50 hover:text-[#087FBD] transition-colors"
+                className="flex-1 py-1.5 px-3 rounded-lg bg-[#F7F9FC] dark:bg-slate-800 border border-[#E4EAF1] dark:border-slate-700 text-xs font-semibold text-[#475467] dark:text-slate-300 hover:border-[#E88A05]/50 hover:text-[#E88A05] transition-colors"
               >
                 Staff Fill
               </button>
@@ -195,7 +195,7 @@ export default function LoginPage() {
 
         <p className="text-center text-sm text-[#475467] dark:text-slate-400">
           Not a staff member?{" "}
-          <Link href="/" className="font-semibold text-[#087FBD] hover:text-[#0369A1] transition-colors">
+          <Link href="/" className="font-semibold text-[#E88A05] hover:text-[#C45F08] transition-colors">
             Go to public portal
           </Link>
         </p>

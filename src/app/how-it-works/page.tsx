@@ -42,7 +42,7 @@ export default function HowItWorksPage() {
 
         {/* Step 2 */}
         <div className="bg-card border border-border rounded-3xl p-6 sm:p-8 shadow-card text-card-foreground flex flex-col md:flex-row gap-6 items-start">
-          <div className="w-12 h-12 rounded-2xl bg-teal-500/10 text-teal-600 flex items-center justify-center font-mono font-bold text-lg shrink-0">
+          <div className="w-12 h-12 rounded-2xl bg-orange-500/10 text-orange-600 flex items-center justify-center font-mono font-bold text-lg shrink-0">
             02
           </div>
           <div className="space-y-2">

@@ -65,7 +65,7 @@ export function Navbar() {
           <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
             <path
               d="M16 2L4 7.5V16.5C4 22.8 9.3 28.6 16 30C22.7 28.6 28 22.8 28 16.5V7.5L16 2Z"
-              fill="#087FBD"
+              fill="#E88A05"
             />
             <rect x="14" y="9" width="4" height="14" rx="1" fill="white" />
             <rect x="9" y="14" width="14" height="4" rx="1" fill="white" />
@@ -75,7 +75,7 @@ export function Navbar() {
             style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}
           >
             <span className="text-[#101828] dark:text-white">Medi</span>
-            <span className="text-[#087FBD]">Connect</span>
+            <span className="text-[#E88A05]">Connect</span>
           </span>
         </Link>
 
@@ -87,13 +87,13 @@ export function Navbar() {
               href={link.href}
               className={`relative px-3 py-1.5 text-sm transition-colors rounded-md ${
                 isActive(link.href)
-                  ? "text-[#087FBD] font-semibold"
+                  ? "text-[#E88A05] font-semibold"
                   : "text-[#475467] hover:text-[#101828] dark:text-slate-400 dark:hover:text-white"
               }`}
             >
               {link.label}
               {isActive(link.href) && (
-                <span className="absolute bottom-0 left-3 right-3 h-0.5 rounded-full bg-[#087FBD]" />
+                <span className="absolute bottom-0 left-3 right-3 h-0.5 rounded-full bg-[#E88A05]" />
               )}
             </Link>
           ))}
@@ -117,13 +117,13 @@ export function Navbar() {
               <div className="absolute right-0 mt-1.5 w-36 bg-white dark:bg-slate-900 border border-[#E4EAF1] dark:border-slate-700 rounded-xl shadow-lg overflow-hidden z-50">
                 <button
                   onClick={() => { setLocale("en"); setLangOpen(false); }}
-                  className={`w-full text-left px-4 py-2.5 text-sm transition ${locale === "en" ? "text-[#087FBD] font-semibold bg-blue-50 dark:bg-blue-900/20" : "text-[#475467] dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800"}`}
+                  className={`w-full text-left px-4 py-2.5 text-sm transition ${locale === "en" ? "text-[#E88A05] font-semibold bg-amber-50 dark:bg-amber-900/20" : "text-[#475467] dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800"}`}
                 >
                   English
                 </button>
                 <button
                   onClick={() => { setLocale("hi"); setLangOpen(false); }}
-                  className={`w-full text-left px-4 py-2.5 text-sm transition ${locale === "hi" ? "text-[#087FBD] font-semibold bg-blue-50 dark:bg-blue-900/20" : "text-[#475467] dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800"}`}
+                  className={`w-full text-left px-4 py-2.5 text-sm transition ${locale === "hi" ? "text-[#E88A05] font-semibold bg-amber-50 dark:bg-amber-900/20" : "text-[#475467] dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800"}`}
                 >
                   हिन्दी
                 </button>
@@ -146,12 +146,12 @@ export function Navbar() {
           {/* Auth Controls */}
           {user ? (
             <div className="hidden sm:flex items-center gap-2 ml-1">
-              <div className="w-8 h-8 rounded-full bg-[#087FBD] flex items-center justify-center text-white text-xs font-bold flex-shrink-0">
+              <div className="w-8 h-8 rounded-full bg-[#E88A05] flex items-center justify-center text-white text-xs font-bold flex-shrink-0">
                 {user.name ? user.name.charAt(0).toUpperCase() : <User className="w-4 h-4" />}
               </div>
               <Link
                 href="/staff/dashboard"
-                className="text-sm font-semibold text-white bg-[#087FBD] hover:bg-[#0670a8] px-3.5 py-1.5 rounded-lg transition"
+                className="text-sm font-semibold text-white bg-[#E88A05] hover:bg-[#C45F08] px-3.5 py-1.5 rounded-lg transition"
               >
                 Dashboard
               </Link>
@@ -166,7 +166,7 @@ export function Navbar() {
               </Link>
               <Link
                 href="/hospitals"
-                className="text-sm font-semibold text-white bg-[#087FBD] hover:bg-[#0670a8] px-4 py-1.5 rounded-lg transition shadow-sm"
+                className="text-sm font-semibold text-white bg-[#E88A05] hover:bg-[#C45F08] px-4 py-1.5 rounded-lg transition shadow-sm"
               >
                 Get Started
               </Link>
@@ -203,7 +203,7 @@ export function Navbar() {
               onClick={() => setMobileOpen(false)}
               className={`px-3 py-2.5 rounded-lg text-sm font-medium transition ${
                 isActive(link.href)
-                  ? "text-[#087FBD] bg-blue-50 dark:bg-blue-900/20 font-semibold"
+                  ? "text-[#E88A05] bg-amber-50 dark:bg-amber-900/20 font-semibold"
                   : "text-[#475467] dark:text-slate-300 hover:text-[#101828] dark:hover:text-white hover:bg-slate-50 dark:hover:bg-slate-800"
               }`}
             >
@@ -215,13 +215,13 @@ export function Navbar() {
             <div className="flex gap-2">
               <button
                 onClick={() => setLocale("en")}
-                className={`flex-1 py-2 rounded-lg text-sm font-medium border transition ${locale === "en" ? "border-[#087FBD] text-[#087FBD] bg-blue-50 dark:bg-blue-900/20" : "border-[#E4EAF1] dark:border-slate-700 text-[#475467] dark:text-slate-400"}`}
+                className={`flex-1 py-2 rounded-lg text-sm font-medium border transition ${locale === "en" ? "border-[#E88A05] text-[#E88A05] bg-amber-50 dark:bg-amber-900/20" : "border-[#E4EAF1] dark:border-slate-700 text-[#475467] dark:text-slate-400"}`}
               >
                 English
               </button>
               <button
                 onClick={() => setLocale("hi")}
-                className={`flex-1 py-2 rounded-lg text-sm font-medium border transition ${locale === "hi" ? "border-[#087FBD] text-[#087FBD] bg-blue-50 dark:bg-blue-900/20" : "border-[#E4EAF1] dark:border-slate-700 text-[#475467] dark:text-slate-400"}`}
+                className={`flex-1 py-2 rounded-lg text-sm font-medium border transition ${locale === "hi" ? "border-[#E88A05] text-[#E88A05] bg-amber-50 dark:bg-amber-900/20" : "border-[#E4EAF1] dark:border-slate-700 text-[#475467] dark:text-slate-400"}`}
               >
                 हिन्दी
               </button>
@@ -230,7 +230,7 @@ export function Navbar() {
               <Link
                 href="/staff/dashboard"
                 onClick={() => setMobileOpen(false)}
-                className="w-full text-center text-sm font-semibold text-white bg-[#087FBD] hover:bg-[#0670a8] px-4 py-2.5 rounded-lg transition"
+                className="w-full text-center text-sm font-semibold text-white bg-[#E88A05] hover:bg-[#C45F08] px-4 py-2.5 rounded-lg transition"
               >
                 Dashboard
               </Link>
@@ -246,7 +246,7 @@ export function Navbar() {
                 <Link
                   href="/hospitals"
                   onClick={() => setMobileOpen(false)}
-                  className="w-full text-center text-sm font-semibold text-white bg-[#087FBD] hover:bg-[#0670a8] px-4 py-2.5 rounded-lg transition"
+                  className="w-full text-center text-sm font-semibold text-white bg-[#E88A05] hover:bg-[#C45F08] px-4 py-2.5 rounded-lg transition"
                 >
                   Get Started
                 </Link>

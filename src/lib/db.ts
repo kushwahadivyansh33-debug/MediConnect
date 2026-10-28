@@ -1,9 +1,13 @@
 import fs from "fs";
 import path from "path";
+import { randomUUID } from "crypto";
 import {
   User,
   Facility,
   BloodBank,
+  BloodGroup,
+  BloodRequest,
+  HospitalRegistration,
   AuditLog,
   SystemNotification,
   PasswordResetToken,
@@ -13,6 +17,8 @@ export interface DatabaseState {
   users: User[];
   facilities: Facility[];
   bloodBanks: BloodBank[];
+  bloodRequests: BloodRequest[];
+  hospitalRegistrations: HospitalRegistration[];
   auditLogs: AuditLog[];
   notifications: SystemNotification[];
   passwordResetTokens: PasswordResetToken[];
@@ -77,7 +83,7 @@ function getInitialSeed(): DatabaseState {
         emergencyPhone: "+91 522 408 1200",
         email: "emergency@citycarehospital.org",
         website: "https://citycarehospital.org",
-        image: "/images/hospital-1.svg",
+        image: "/images/hospital-photo-1.jpg",
         distanceKm: 1.2,
         totalBeds: 330,
         dataSource: "Hospital On-Duty Administration",
@@ -164,7 +170,7 @@ function getInitialSeed(): DatabaseState {
         emergencyPhone: "+91 522 412 5600",
         email: "emergency@sunrisehospital.org",
         website: "https://sunrisehospital.org",
-        image: "/images/hospital-2.svg",
+        image: "/images/hospital-photo-2.jpg",
         distanceKm: 3.8,
         totalBeds: 520,
         dataSource: "Chief Medical Officer Desk",
@@ -240,7 +246,7 @@ function getInitialSeed(): DatabaseState {
         emergencyPhone: "+91 522 433 2200",
         email: "care@lifecarehospital.org",
         website: "https://lifecarehospital.org",
-        image: "/images/hospital-3.svg",
+        image: "/images/hospital-photo-3.jpg",
         distanceKm: 5.4,
         totalBeds: 410,
         dataSource: "Hospital Operations Room",
@@ -528,6 +534,8 @@ function getInitialSeed(): DatabaseState {
         ],
       },
     ],
+    bloodRequests: [],
+    hospitalRegistrations: [],
     auditLogs: [
       {
         id: "aud_01",
@@ -616,7 +624,12 @@ export class Database {
     try {
       if (fs.existsSync(DATA_FILE_PATH)) {
         const fileContent = fs.readFileSync(DATA_FILE_PATH, "utf-8");
-        return JSON.parse(fileContent);
+        const state = JSON.parse(fileContent) as DatabaseState;
+        return {
+          ...state,
+          bloodRequests: state.bloodRequests ?? [],
+          hospitalRegistrations: state.hospitalRegistrations ?? [],
+        };
       }
     } catch (err) {
       console.warn("Could not load database file, re-seeding default state:", err);
@@ -626,12 +639,14 @@ export class Database {
     return seed;
   }
 
-  private saveState(state: DatabaseState) {
+  private saveState(state: DatabaseState): boolean {
     try {
       this.ensureDataDir();
       fs.writeFileSync(DATA_FILE_PATH, JSON.stringify(state, null, 2), "utf-8");
+      return true;
     } catch (err) {
       console.error("Error writing database state to disk:", err);
+      return false;
     }
   }
 
@@ -715,6 +730,58 @@ export class Database {
 
   public getBloodBankById(id: string): BloodBank | undefined {
     return this.state.bloodBanks.find((b) => b.id === id);
+  }
+
+  public createBloodRequest(request: {
+    bloodBankId: string;
+    bloodGroup: BloodGroup;
+    units: number;
+    neededBy: string;
+    appointmentSlot: string;
+    requesterName: string;
+    requesterPhone: string;
+    requesterEmail?: string;
+    notes?: string;
+  }): BloodRequest | null {
+    const bank = this.getBloodBankById(request.bloodBankId);
+    if (!bank || !bank.inventory.some((item) => item.bloodGroup === request.bloodGroup)) {
+      return null;
+    }
+
+    const uuid = randomUUID();
+    const createdAt = new Date().toISOString();
+    const bloodRequest: BloodRequest = {
+      ...request,
+      id: uuid,
+      reference: `MC-${uuid.slice(0, 8).toUpperCase()}`,
+      bloodBankName: bank.name,
+      status: "PENDING",
+      createdAt,
+    };
+
+    this.state.bloodRequests.unshift(bloodRequest);
+    if (!this.saveState(this.state)) {
+      this.state.bloodRequests.shift();
+      throw new Error("Unable to persist the blood request.");
+    }
+    return bloodRequest;
+  }
+
+  public createHospitalRegistration(registration: Omit<HospitalRegistration, "id" | "status" | "createdAt">) {
+    const hospitalRegistration: HospitalRegistration = {
+      ...registration,
+      id: randomUUID(),
+      status: "PENDING",
+      createdAt: new Date().toISOString(),
+    };
+
+    this.state.hospitalRegistrations.unshift(hospitalRegistration);
+    if (!this.saveState(this.state)) {
+      this.state.hospitalRegistrations.shift();
+      throw new Error("Unable to persist the hospital registration.");
+    }
+
+    return hospitalRegistration;
   }
 
   public updateBloodInventory(

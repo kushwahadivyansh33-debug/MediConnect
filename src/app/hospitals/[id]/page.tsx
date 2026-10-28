@@ -65,23 +65,31 @@ export default function HospitalDetailPage() {
         <Building2 className="w-12 h-12 text-slate-300 mx-auto" />
         <h2 className="font-display text-xl font-bold text-[#101828] dark:text-white">Hospital Not Found</h2>
         <p className="text-sm text-[#475467] dark:text-slate-400">{error || "This facility does not exist."}</p>
-        <Link href="/hospitals" className="inline-flex items-center gap-1.5 text-sm font-semibold text-[#087FBD] hover:underline">
+        <Link href="/hospitals" className="inline-flex items-center gap-1.5 text-sm font-semibold text-[#E88A05] hover:underline">
           <ArrowLeft className="w-4 h-4" /> Back to Hospitals
         </Link>
       </div>
     );
   }
 
-  const imgSrc = facility.image || "/images/hospital-1.svg";
+  const hospitalPhotos: Record<string, string> = {
+    fac_apollo_lko: "/images/hospital-photo-1.jpg",
+    fac_kgmu_lko: "/images/hospital-photo-2.jpg",
+    fac_max_del: "/images/hospital-photo-3.jpg",
+  };
+  const imgSrc =
+    facility.image?.endsWith(".svg")
+      ? hospitalPhotos[facility.id] || "/images/hospital-hero.jpg"
+      : facility.image || "/images/hospital-hero.jpg";
   const overallStatus = facility.resources.find((r) => r.name.toLowerCase().includes("icu"))?.status || "AVAILABLE";
 
   return (
     <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
       {/* Breadcrumb */}
       <nav className="flex items-center gap-2 text-sm text-[#475467] dark:text-slate-400">
-        <Link href="/" className="hover:text-[#087FBD] transition-colors">Home</Link>
+        <Link href="/" className="hover:text-[#E88A05] transition-colors">Home</Link>
         <ChevronRight className="w-4 h-4" />
-        <Link href="/hospitals" className="hover:text-[#087FBD] transition-colors">Hospitals</Link>
+        <Link href="/hospitals" className="hover:text-[#E88A05] transition-colors">Hospitals</Link>
         <ChevronRight className="w-4 h-4" />
         <span className="text-[#101828] dark:text-white font-medium truncate max-w-[200px]">{facility.name}</span>
       </nav>
@@ -89,7 +97,7 @@ export default function HospitalDetailPage() {
       {/* Hero card */}
       <div className="bg-white dark:bg-slate-900 border border-[#E4EAF1] dark:border-slate-800 rounded-2xl overflow-hidden shadow-card">
         {/* Hospital image */}
-        <div className="relative h-52 sm:h-64 bg-sky-50 dark:bg-slate-800">
+        <div className="relative h-52 sm:h-64 bg-amber-50 dark:bg-slate-800">
           <Image src={imgSrc} alt={facility.name} fill className="object-cover" />
           <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
           <div className="absolute bottom-4 left-5 right-5 flex items-end justify-between">
@@ -110,12 +118,12 @@ export default function HospitalDetailPage() {
         {/* Hospital meta */}
         <div className="p-5 grid grid-cols-1 sm:grid-cols-3 gap-4">
           <div className="flex items-center gap-2.5">
-            <div className="w-9 h-9 rounded-xl bg-[#087FBD]/10 text-[#087FBD] flex items-center justify-center shrink-0">
+            <div className="w-9 h-9 rounded-xl bg-[#E88A05]/10 text-[#E88A05] flex items-center justify-center shrink-0">
               <Phone className="w-4 h-4" />
             </div>
             <div>
               <p className="text-[10px] font-bold uppercase tracking-wide text-slate-400">Phone</p>
-              <a href={`tel:${facility.phone}`} className="text-sm font-mono font-semibold text-[#101828] dark:text-white hover:text-[#087FBD] transition-colors">
+              <a href={`tel:${facility.phone}`} className="text-sm font-mono font-semibold text-[#101828] dark:text-white hover:text-[#E88A05] transition-colors">
                 {facility.phone}
               </a>
             </div>
@@ -165,7 +173,7 @@ export default function HospitalDetailPage() {
               className="bg-white dark:bg-slate-900 border border-[#E4EAF1] dark:border-slate-800 rounded-2xl p-5 shadow-xs hover:shadow-card transition-all space-y-3"
             >
               <div className="flex items-start justify-between gap-2">
-                <div className="w-10 h-10 rounded-xl bg-[#F7F9FC] dark:bg-slate-800 text-[#087FBD] flex items-center justify-center shrink-0">
+                <div className="w-10 h-10 rounded-xl bg-[#F7F9FC] dark:bg-slate-800 text-[#E88A05] flex items-center justify-center shrink-0">
                   {getIcon(res.name)}
                 </div>
                 <StatusBadge status={res.status} />
@@ -198,7 +206,7 @@ export default function HospitalDetailPage() {
       {/* Back link */}
       <Link
         href="/hospitals"
-        className="inline-flex items-center gap-1.5 text-sm font-semibold text-[#087FBD] hover:text-[#0369A1] transition-colors"
+        className="inline-flex items-center gap-1.5 text-sm font-semibold text-[#E88A05] hover:text-[#C45F08] transition-colors"
       >
         <ArrowLeft className="w-4 h-4" /> Back to Hospital Finder
       </Link>

@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { db } from "@/lib/db";
+import { getApproximateCoordinates } from "@/lib/location";
 
 export const dynamic = "force-dynamic";
 
@@ -23,7 +24,7 @@ export async function GET(request: Request) {
       );
     }
 
-    if (area && area !== "ALL") {
+    if (area && area !== "ALL" && area !== "All Regions") {
       facilities = facilities.filter(
         (f) => f.area.toLowerCase() === area.toLowerCase() || f.city.toLowerCase() === area.toLowerCase()
       );
@@ -40,7 +41,16 @@ export async function GET(request: Request) {
       );
     }
 
-    return NextResponse.json(facilities);
+    return NextResponse.json(
+      facilities.map((facility) => {
+        const approximate = getApproximateCoordinates(facility.pincode);
+        return {
+          ...facility,
+          latitude: facility.latitude ?? approximate?.latitude,
+          longitude: facility.longitude ?? approximate?.longitude,
+        };
+      }),
+    );
   } catch (error) {
     console.error("Error in GET /api/facilities:", error);
     return NextResponse.json({ error: "Failed to fetch facilities" }, { status: 500 });

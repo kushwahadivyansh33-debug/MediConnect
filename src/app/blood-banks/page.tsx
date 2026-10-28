@@ -10,6 +10,9 @@ import {
 import { BloodBank, BloodGroup } from "@/types";
 import { StatusBadge } from "@/components/ui/StatusBadge";
 import { SkeletonCard } from "@/components/ui/SkeletonCard";
+import { BloodRequestButton } from "@/components/blood/BloodRequestButton";
+import { useBrowserLocation } from "@/hooks/useBrowserLocation";
+import { distanceInKm } from "@/lib/location";
 
 const BLOOD_GROUPS: BloodGroup[] = ["A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-"];
 const STATUS_OPTIONS = ["Available", "Limited", "Unavailable"];
@@ -29,6 +32,19 @@ function BloodBanksFinderContent() {
   );
   const [sortBy, setSortBy] = useState<"nearest" | "updated">("nearest");
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const { location, locating, error: locationError, requestLocation } = useBrowserLocation();
+
+  const nearbyBloodBanks = location
+    ? [...bloodBanks].sort((left, right) => {
+        const leftDistance = left.latitude === undefined || left.longitude === undefined
+          ? Number.POSITIVE_INFINITY
+          : distanceInKm(location, { latitude: left.latitude, longitude: left.longitude });
+        const rightDistance = right.latitude === undefined || right.longitude === undefined
+          ? Number.POSITIVE_INFINITY
+          : distanceInKm(location, { latitude: right.latitude, longitude: right.longitude });
+        return leftDistance - rightDistance;
+      })
+    : bloodBanks;
 
   const fetchBloodBanks = async () => {
     try {
@@ -50,6 +66,9 @@ function BloodBanksFinderContent() {
   };
 
   useEffect(() => { fetchBloodBanks(); }, [selectedGroup, areaFilter]);
+  useEffect(() => {
+    if (location) setAreaFilter("All Regions");
+  }, [location]);
 
   const handleSearchSubmit = (e: React.FormEvent) => { e.preventDefault(); fetchBloodBanks(); };
   const handleClearFilters = () => {
@@ -67,6 +86,19 @@ function BloodBanksFinderContent() {
         <p className="text-sm text-[#475467] dark:text-slate-400">
           Check reported blood group availability near you. All data is DEMO DATA — call the facility to confirm.
         </p>
+        <div className="flex flex-wrap items-center gap-3 pt-2">
+          <button
+            type="button"
+            onClick={requestLocation}
+            disabled={locating}
+            className="inline-flex items-center gap-2 rounded-lg border border-[#E88A05]/30 bg-amber-50 px-3 py-2 text-xs font-semibold text-[#9A4A00] transition hover:bg-amber-100 disabled:opacity-60"
+          >
+            <MapPin className="h-4 w-4" />
+            {locating ? "Finding nearby banks…" : location ? "Refresh nearby banks" : "Use my location"}
+          </button>
+          {location && <span className="text-xs text-slate-500">Sorted by approximate distance; your location stays in this browser.</span>}
+          {locationError && <span role="status" className="text-xs text-amber-700">{locationError}</span>}
+        </div>
       </div>
 
       {/* Demo notice */}
@@ -84,8 +116,8 @@ function BloodBanksFinderContent() {
             onClick={() => setSelectedGroup(bg)}
             className={`py-2.5 rounded-xl text-sm font-mono font-bold transition-all border text-center ${
               selectedGroup === bg
-                ? "bg-[#087FBD] text-white border-[#087FBD] shadow-xs scale-[1.03]"
-                : "bg-white dark:bg-slate-900 border-[#E4EAF1] dark:border-slate-800 text-[#101828] dark:text-slate-200 hover:border-[#087FBD]/40"
+                ? "bg-[#E88A05] text-white border-[#E88A05] shadow-xs scale-[1.03]"
+                : "bg-white dark:bg-slate-900 border-[#E4EAF1] dark:border-slate-800 text-[#101828] dark:text-slate-200 hover:border-[#E88A05]/40"
             }`}
           >
             {bg}
@@ -126,7 +158,7 @@ function BloodBanksFinderContent() {
         <div className="flex items-center gap-2 shrink-0 w-full sm:w-auto px-1">
           <button
             type="submit"
-            className="flex-1 sm:flex-initial px-5 py-2.5 rounded-xl text-sm font-semibold bg-[#087FBD] hover:bg-[#0369A1] text-white transition-colors shadow-xs flex items-center justify-center gap-2"
+            className="flex-1 sm:flex-initial px-5 py-2.5 rounded-xl text-sm font-semibold bg-[#E88A05] hover:bg-[#C45F08] text-white transition-colors shadow-xs flex items-center justify-center gap-2"
           >
             <Search className="w-3.5 h-3.5" /> Search
           </button>
@@ -149,7 +181,7 @@ function BloodBanksFinderContent() {
             <span className="font-semibold text-sm text-[#101828] dark:text-white flex items-center gap-1.5">
               <Filter className="w-4 h-4 text-slate-400" /> Filters
             </span>
-            <button onClick={handleClearFilters} className="text-xs font-semibold text-[#087FBD] hover:underline">Clear all</button>
+            <button onClick={handleClearFilters} className="text-xs font-semibold text-[#E88A05] hover:underline">Clear all</button>
           </div>
 
           <div className="space-y-2.5">
@@ -180,7 +212,7 @@ function BloodBanksFinderContent() {
                     type="checkbox"
                     checked={statusFilters[st]}
                     onChange={() => setStatusFilters((p) => ({ ...p, [st]: !p[st] }))}
-                    className="w-4 h-4 rounded border-slate-300 accent-[#087FBD]"
+                    className="w-4 h-4 rounded border-slate-300 accent-[#E88A05]"
                   />
                   {st}
                 </label>
@@ -193,7 +225,7 @@ function BloodBanksFinderContent() {
             <div className="space-y-2">
               {(["nearest", "updated"] as const).map((s) => (
                 <label key={s} className="flex items-center gap-2 text-sm text-[#475467] dark:text-slate-300 cursor-pointer">
-                  <input type="radio" name="sortByBlood" checked={sortBy === s} onChange={() => setSortBy(s)} className="accent-[#087FBD]" />
+                  <input type="radio" name="sortByBlood" checked={sortBy === s} onChange={() => setSortBy(s)} className="accent-[#E88A05]" />
                   {s === "nearest" ? "Nearest First" : "Last Updated"}
                 </label>
               ))}
@@ -216,7 +248,7 @@ function BloodBanksFinderContent() {
               <Droplet className="w-10 h-10 text-slate-300 mx-auto" />
               <p className="font-semibold text-[#101828] dark:text-white">Failed to load blood banks</p>
               <p className="text-sm text-[#475467] dark:text-slate-400">{error}</p>
-              <button onClick={fetchBloodBanks} className="px-4 py-2 rounded-xl bg-[#087FBD] text-white text-sm font-semibold">
+              <button onClick={fetchBloodBanks} className="px-4 py-2 rounded-xl bg-[#E88A05] text-white text-sm font-semibold">
                 Try Again
               </button>
             </div>
@@ -226,12 +258,15 @@ function BloodBanksFinderContent() {
             <div className="py-16 text-center space-y-3">
               <Droplet className="w-10 h-10 text-slate-300 mx-auto" />
               <p className="font-semibold text-[#101828] dark:text-white">No blood banks found</p>
-              <button onClick={handleClearFilters} className="text-sm font-semibold text-[#087FBD] hover:underline">Clear filters</button>
+              <button onClick={handleClearFilters} className="text-sm font-semibold text-[#E88A05] hover:underline">Clear filters</button>
             </div>
           )}
 
-          {!loading && !error && bloodBanks.map((bb, idx) => {
+          {!loading && !error && nearbyBloodBanks.map((bb, idx) => {
             const status = idx === 0 ? "LIMITED" : idx === 1 ? "AVAILABLE" : "UNKNOWN";
+            const distance = location && bb.latitude !== undefined && bb.longitude !== undefined
+              ? distanceInKm(location, { latitude: bb.latitude, longitude: bb.longitude })
+              : null;
             return (
               <div
                 key={bb.id}
@@ -245,8 +280,13 @@ function BloodBanksFinderContent() {
                     <div>
                       <h3 className="font-display font-bold text-base text-[#101828] dark:text-white">{bb.name}</h3>
                       <p className="text-xs text-[#475467] dark:text-slate-400">{bb.hospitalName || bb.area}</p>
+                      {distance !== null && (
+                        <p className="mt-1 text-[11px] font-medium text-[#9A4A00]">
+                          About {distance.toFixed(1)} km away (straight-line estimate)
+                        </p>
+                      )}
                       <p className="text-xs font-mono text-[#475467] dark:text-slate-300 flex items-center gap-1.5 mt-0.5">
-                        <Phone className="w-3.5 h-3.5 text-[#087FBD]" /> {bb.phone}
+                        <Phone className="w-3.5 h-3.5 text-[#E88A05]" /> {bb.phone}
                       </p>
                     </div>
                   </div>
@@ -283,15 +323,20 @@ function BloodBanksFinderContent() {
                     </span>
                   </div>
                   <div className="flex items-center gap-2">
+                    <BloodRequestButton
+                      bloodBank={bb}
+                      initialGroup={selectedGroup as BloodGroup}
+                      className="inline-flex items-center justify-center gap-1.5 rounded-xl bg-[#E88A05] px-3 py-2 text-xs font-semibold text-white shadow-xs transition hover:bg-[#C45F08]"
+                    />
                     <Link
                       href={`/blood-banks/${bb.id}`}
-                      className="px-4 py-2 rounded-xl border border-[#E4EAF1] dark:border-slate-700 hover:border-[#087FBD] text-sm font-semibold text-[#475467] dark:text-slate-200 hover:text-[#087FBD] transition-colors"
+                      className="px-4 py-2 rounded-xl border border-[#E4EAF1] dark:border-slate-700 hover:border-[#E88A05] text-sm font-semibold text-[#475467] dark:text-slate-200 hover:text-[#E88A05] transition-colors"
                     >
                       View Details
                     </Link>
                     <a
                       href={`tel:${bb.phone}`}
-                      className="flex items-center gap-1.5 px-4 py-2 rounded-xl bg-[#087FBD] hover:bg-[#0369A1] text-white text-sm font-semibold transition-colors shadow-xs"
+                      className="flex items-center gap-1.5 px-4 py-2 rounded-xl bg-[#E88A05] hover:bg-[#C45F08] text-white text-sm font-semibold transition-colors shadow-xs"
                     >
                       <PhoneCall className="w-3.5 h-3.5" /> Call
                     </a>

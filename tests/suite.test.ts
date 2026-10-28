@@ -3,6 +3,16 @@ import test from "node:test";
 import { db } from "../src/lib/db.ts";
 import { hashPassword, verifyPassword, createSessionToken, verifySessionToken } from "../src/lib/auth.ts";
 import { translations } from "../src/lib/translations.ts";
+import { distanceInKm, getApproximateCoordinates } from "../src/lib/location.ts";
+
+test("Location: Calculates distance from approximate postal coordinates", () => {
+  const gomtiNagar = getApproximateCoordinates("226010");
+  const hazratganj = getApproximateCoordinates("226001");
+
+  assert.ok(gomtiNagar && hazratganj, "Seed hospital areas should have approximate coordinates");
+  assert.ok(distanceInKm(gomtiNagar, hazratganj) > 0);
+  assert.ok(distanceInKm(gomtiNagar, gomtiNagar) < 0.001);
+});
 
 test("Database: Retrieves initial facilities seeded with DEMO DATA tag", () => {
   const facilities = db.getFacilities();
